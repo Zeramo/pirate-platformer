@@ -238,7 +238,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.53, y: -0.02}
+  m_Offset: {x: -0.53, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -532,18 +532,22 @@ CompositeCollider2D:
   m_ColliderPaths:
   - m_Collider: {fileID: 2100550910}
     m_ColliderPaths:
-    - - X: -70000000
-        Y: -50000000
-      - X: 90000000
-        Y: -50000000
-      - X: 90000000
+    - - X: 90000000
         Y: -40000000
       - X: 80000000
         Y: -40000000
       - X: 80000000
-        Y: -30000000
+        Y: -30000100
+      - X: 59999959
+        Y: -30000100
+      - X: 59999900
+        Y: -30000041
+      - X: 59999900
+        Y: -22499975
+      - X: 59999924
+        Y: -22499931
       - X: 60000000
-        Y: -30000000
+        Y: -22499880
       - X: 60000000
         Y: -20000000
       - X: 30000000
@@ -560,13 +564,17 @@ CompositeCollider2D:
         Y: -40000000
       - X: -70000000
         Y: -40000000
+      - X: -70000000
+        Y: -50000000
+      - X: 90000000
+        Y: -50000000
   m_CompositePaths:
     m_Paths:
     - - {x: 8.99997, y: -5}
       - {x: 8.99997, y: -4}
       - {x: 8, y: -3.9999704}
-      - {x: 7.9999704, y: -3}
-      - {x: 6, y: -2.9999707}
+      - {x: 7.9999704, y: -3.00001}
+      - {x: 5.99999, y: -2.9999747}
       - {x: 5.999971, y: -2}
       - {x: 3, y: -2.0000293}
       - {x: 2.9999707, y: -3}
@@ -1060,6 +1068,14 @@ Tilemap:
     m_Data: {fileID: 11400000, guid: 4f3753b07a68a8745b507b8d505c60a1, type: 2}
   - m_RefCount: 0
     m_Data: {fileID: 0}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
   m_TileSpriteArray:
   - m_RefCount: 2
     m_Data: {fileID: 5399061400661604672, guid: 2ec966f7d3b195d47a067286b06247fa, type: 3}
@@ -1075,6 +1091,16 @@ Tilemap:
     m_Data: {fileID: -178359932455013240, guid: 2ec966f7d3b195d47a067286b06247fa, type: 3}
   - m_RefCount: 2
     m_Data: {fileID: -301653405578374708, guid: 2ec966f7d3b195d47a067286b06247fa, type: 3}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
   m_TileMatrixArray:
   - m_RefCount: 37
     m_Data:
