@@ -12,14 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d1514134bc4fbd41bb739b1b9a49231, type: 3}
   m_Name: RandomOvergrowth
   m_EditorClassIdentifier: 
-  m_DefaultSprite: {fileID: -301653405578374708, guid: 2ec966f7d3b195d47a067286b06247fa, type: 3}
+  m_DefaultSprite: {fileID: -416358703282420824, guid: ce97b60208ee8714d90ea071c65800ad, type: 3}
   m_DefaultGameObject: {fileID: 0}
   m_DefaultColliderType: 1
   m_TilingRules:
   - m_Id: 0
     m_Sprites:
-    - {fileID: -301653405578374708, guid: 2ec966f7d3b195d47a067286b06247fa, type: 3}
-    - {fileID: 5399061400661604672, guid: 2ec966f7d3b195d47a067286b06247fa, type: 3}
+    - {fileID: -416358703282420824, guid: ce97b60208ee8714d90ea071c65800ad, type: 3}
+    - {fileID: 8405302923867901265, guid: ce97b60208ee8714d90ea071c65800ad, type: 3}
     m_GameObject: {fileID: 0}
     m_MinAnimationSpeed: 1
     m_MaxAnimationSpeed: 1
