@@ -387,7 +387,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerSpeed: 10
   facingRight: 1
-  playerJumpPower: 500
+  playerJumpPower: 750
   isGrounded: 0
 --- !u!1 &1594373058
 GameObject:
