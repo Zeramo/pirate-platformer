@@ -5,14 +5,20 @@ using UnityEngine;
 public class movementplayer : MonoBehaviour
 {
     public int playerSpeed = 10;
-    public bool facingRight = true;
     public int playerJumpPower = 1250;
+
+    public bool facingRight = true;
+    
     private float moveX;
     public bool isGrounded;
+
+    BoxCollider2D boxCollider;
+    Rigidbody2D rigidBody;
     // Start is called before the first frame update
     void Start()
     {
-        
+        rigidBody = GetComponent<Rigidbody2D>();
+        boxCollider = GetComponent<BoxCollider2D>();
 
     }
 
@@ -37,11 +43,11 @@ public class movementplayer : MonoBehaviour
             FlipPlayer();
         }
         //Physics
-        gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2 (moveX * playerSpeed, gameObject.GetComponent<Rigidbody2D>().velocity.y);
+        rigidBody.velocity = new Vector2 (moveX * playerSpeed, rigidBody.velocity.y);
     }
 
     void Jump(){
-        GetComponent<Rigidbody2D>().AddForce (Vector2.up * playerJumpPower);
+        rigidBody.AddForce (Vector2.up * playerJumpPower);
     }
 
     void FlipPlayer(){ // replace once Animations come
