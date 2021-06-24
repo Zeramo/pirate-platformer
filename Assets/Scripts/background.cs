@@ -5,7 +5,7 @@ using UnityEngine;
 public class background : MonoBehaviour
 {
     public GameObject go;
-    float distanceFromCamera = 10f;
+    float distanceFromCamera = 12.5f;
     // Start is called before the first frame update
     void Start()
     {
