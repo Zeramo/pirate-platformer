@@ -9,6 +9,7 @@ public class movementplayer : MonoBehaviour
     [Header("Animator Variables")]
     public Animator animator;
     private bool isDashing = false;
+    private bool animationDashing = false;
     private bool isStabbing = false;
 
     [Header("Physics Forces")]
@@ -52,7 +53,7 @@ public class movementplayer : MonoBehaviour
     {
         CheckJumpOrDash();
         CheckShootOrMelee();
-        
+        AnimatePlayer();
     }
 
     void FixedUpdate()
@@ -132,6 +133,7 @@ public class movementplayer : MonoBehaviour
         Debug.Log(raycastHit.collider);
         if(raycastHit.collider != null){
             isGrounded = true;
+            animationDashing = false;
         } else{
             isGrounded = false;
         }
@@ -168,8 +170,9 @@ public class movementplayer : MonoBehaviour
     }
 
     void AnimatePlayer() {
-        animator.SetFloat("SpeedX", Mathf.Abs(rigidBody.velocity.x));
+        animator.SetFloat("SpeedX", Mathf.Abs(Input.GetAxis("Horizontal")));
         animator.SetFloat("SpeedY", Mathf.Abs(rigidBody.velocity.y));
+        animator.SetBool("isGrounded", isGrounded);
         animator.SetBool("isDashing", isDashing);
         animator.SetBool("isStabbing", isStabbing);
     }
@@ -191,7 +194,8 @@ public class movementplayer : MonoBehaviour
         {
             rigidBody.AddForce(Vector2.right * playerDashPower);
         }
-        isDashing = false;
+        isDashing = true;
+        animationDashing = true;
         Debug.Log("Start Dash");
     }
 
