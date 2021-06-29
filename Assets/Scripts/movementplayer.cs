@@ -6,9 +6,15 @@ public class movementplayer : MonoBehaviour
 {
     public bool drawRaycasts;
 
+    [Header("Animator Variables")]
+    public Animator animator;
+    private bool isDashing = false;
+    private bool isStabbing = false;
+
     [Header("Physics Forces")]
     public int playerSpeed = 10;
     public int playerJumpPower = 750;
+    public int playerDashPower = 10000;
 
     private float moveX;
 
@@ -27,11 +33,13 @@ public class movementplayer : MonoBehaviour
 
     BoxCollider2D boxCollider;
     Rigidbody2D rigidBody;
+    private BoxCollider2D boxCollider2d;
     // Start is called before the first frame update
     void Start()
     {
         rigidBody = GetComponent<Rigidbody2D>();
         boxCollider = GetComponent<BoxCollider2D>();
+        boxCollider2d = transform.GetComponent<BoxCollider2D>();
 
         isGrounded = true;
         doubleJump = false;
@@ -42,12 +50,58 @@ public class movementplayer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        PhysicsCheck();
-        PlayerMove();
+        CheckJumpOrDash();
+        CheckShootOrMelee();
+        
     }
 
-    void PhysicsCheck()
+    void FixedUpdate()
     {
+        GroundedCheck();
+         MovementXAxis();
+        
+    }
+
+    void CheckJumpOrDash(){
+
+
+        if(Input.GetButtonDown("Dash") && isGrounded == true)
+        {
+            doubleJump = false;
+            Dash();
+        } else if (Input.GetButtonDown("Dash") && doubleJump)
+        {
+            doubleJump = false;
+            Dash();
+        } else if(Input.GetButtonDown("Jump") && isGrounded == true)
+        {
+            doubleJump = true;
+            Jump();
+        } else if (Input.GetButtonDown("Jump") && doubleJump)
+        {
+            doubleJump = false;
+            Jump();
+        }
+    }
+
+    void CheckShootOrMelee(){
+        if(Input.GetButtonDown("Melee") && isDashing == false)
+        {
+            Debug.Log("Melee");
+            isStabbing = true;
+        } else if (Input.GetButtonDown("Shoot") && isDashing == false)
+        {
+            Debug.Log("shooting");
+            isStabbing = false;
+        } else{
+            isStabbing = false;
+        }
+        
+    }
+
+    void GroundedCheck()
+    {
+        /*
         //Default value is false, we want to check every update cycle
         isGrounded = false;
 
@@ -60,38 +114,85 @@ public class movementplayer : MonoBehaviour
         {
             isGrounded = true;
         }
+        */       
+
+        float extraHeightText = 0.51f;
+        RaycastHit2D raycastHit = Physics2D.BoxCast(boxCollider2d.bounds.center, boxCollider2d.bounds.size, 0f, Vector2.down, extraHeightText, platformsLayer);
+
+        Color rayColor;
+        if (raycastHit.collider != null) {
+            rayColor = Color.green;
+        } else {
+            rayColor = Color.red;
+        }
+        Debug.DrawRay(boxCollider2d.bounds.center + new Vector3(boxCollider2d.bounds.extents.x, 0), Vector2.down * (boxCollider2d.bounds.extents.y + extraHeightText), rayColor);
+        Debug.DrawRay(boxCollider2d.bounds.center - new Vector3(boxCollider2d.bounds.extents.x, 0), Vector2.down * (boxCollider2d.bounds.extents.y + extraHeightText), rayColor);
+        Debug.DrawRay(boxCollider2d.bounds.center - new Vector3(boxCollider2d.bounds.extents.x, boxCollider2d.bounds.extents.y + extraHeightText), Vector2.right * (boxCollider2d.bounds.extents.x * 2f), rayColor);
+
+        Debug.Log(raycastHit.collider);
+        if(raycastHit.collider != null){
+            isGrounded = true;
+        } else{
+            isGrounded = false;
+        }
               
     }
 
-    void PlayerMove(){
-        //Controlls
-        moveX = Input.GetAxis("Horizontal");
-        if(Input.GetButtonDown("Jump") && isGrounded == true)
+    void MovementXAxis(){
+
+
+        if(rigidBody.velocity.x < -10.0 || rigidBody.velocity.x > 10.0 )
         {
-            doubleJump = true;
-            Jump();
-        } else if (Input.GetButtonDown("Jump") && doubleJump)
+            isDashing = false;
+            Debug.Log("End Dash");
+        }
+        if(isDashing == false)  //Move on x Axis if Dash is Over
         {
-            doubleJump = false;
-            Jump();
+            //get input speed
+            moveX = Input.GetAxis("Horizontal");
+            //Player direction update
+            if (moveX < 0.0f && facingRight == true){
+                FlipPlayer();
+            }
+            else if(moveX > 0.0f && facingRight ==false){
+                FlipPlayer();
+            }
+
+            //Physics
+            rigidBody.velocity = new Vector2 (moveX * playerSpeed, rigidBody.velocity.y);
+
         }
 
-        //Animation
-        //Player direction
-        if (moveX < 0.0f && facingRight == true){
-            FlipPlayer();
-        }
-        else if(moveX > 0.0f && facingRight ==false){
-            FlipPlayer();
-        }
-        //Physics
-        rigidBody.velocity = new Vector2 (moveX * playerSpeed, rigidBody.velocity.y);
+
+
+    }
+
+    void AnimatePlayer() {
+        animator.SetFloat("SpeedX", Mathf.Abs(rigidBody.velocity.x));
+        animator.SetFloat("SpeedY", Mathf.Abs(rigidBody.velocity.y));
+        animator.SetBool("isDashing", isDashing);
+        animator.SetBool("isStabbing", isStabbing);
     }
 
     void Jump(){
         rigidBody.velocity = Vector3.zero;
         rigidBody.angularVelocity = 0f;
         rigidBody.AddForce(Vector2.up * playerJumpPower);
+    }
+
+    void Dash(){
+        rigidBody.velocity = Vector3.zero;
+        rigidBody.angularVelocity = 0f;
+
+        if(facingRight == false)
+        {
+            rigidBody.AddForce(Vector2.left * playerDashPower);
+        }else
+        {
+            rigidBody.AddForce(Vector2.right * playerDashPower);
+        }
+        isDashing = false;
+        Debug.Log("Start Dash");
     }
 
     void FlipPlayer(){ // replace once Animations come
