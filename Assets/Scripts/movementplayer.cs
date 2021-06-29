@@ -89,8 +89,8 @@ public class movementplayer : MonoBehaviour
     }
 
     void Jump(){
-        rigidBody.bodyType = RigidbodyType2D.Static;
-        rigidBody.bodyType = RigidbodyType2D.Dynamic;
+        rigidBody.velocity = Vector3.zero;
+        rigidBody.angularVelocity = 0f;
         rigidBody.AddForce(Vector2.up * playerJumpPower);
     }
 
