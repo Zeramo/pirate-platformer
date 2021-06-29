@@ -494,7 +494,7 @@ MonoBehaviour:
   footOffset: 0.41
   platformsLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 2048
 --- !u!95 &935961271
 Animator:
   serializedVersion: 3
