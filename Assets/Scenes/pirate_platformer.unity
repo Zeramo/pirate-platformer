@@ -754,8 +754,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   drawRaycasts: 0
+  animator: {fileID: 935961271}
   playerSpeed: 10
   playerJumpPower: 750
+  playerDashPower: 5000
   isGrounded: 0
   doubleJump: 0
   facingRight: 1
@@ -934,7 +936,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00f4b54dcf910f041903cf0b14021ee6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  amplitude: 5
+  amplitude: 50
   period: 1
 --- !u!1 &1683497197
 GameObject:
