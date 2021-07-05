@@ -88,17 +88,24 @@ public class SwordfishFollow : MonoBehaviour
 
     void Move()
     {
+        //Calculate if player is in sight range. Line of sight is disregarded, but could be implemented with a raycast
         playerInSight = moveDir.magnitude < sightRange;
+        //Calculate if player is in attack range. Same behavior as above
         playerInRange = moveDir.magnitude < attackRange;
 
+        //If player is not in sight, Idle. Can be replaced by a Patrolling function
         if (!playerInSight) Idle();
+        //If player is in sight, in attack range, the enemy has not attacked, and there is no obstacle, Attack
         if (playerInSight && playerInRange && !hasAttacked && !obstacle) Attack();
+        //If player is in sight, but out of range and there is no obstacle, Chase
         if (playerInSight && !playerInRange && !obstacle) Chase();
+        //If there is an obstacle, and the enemy can jump, Jump
         if (obstacle && jumpAvailable) Jump();
     }
 
     void Chase()
     {
+        //If movement direction and facing direction don't align, flip direction
         if (moveDir.x * direction < 0)
             FlipDirection();
 
@@ -163,6 +170,7 @@ public class SwordfishFollow : MonoBehaviour
     {
         enemyHealth -= damage;
 
+        //After .5 seconds, destroy the Game Object containing the enemy
         if (enemyHealth <= 0) Invoke(nameof(DestroyEnemy), .5f);
     }
 
