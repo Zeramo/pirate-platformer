@@ -48,7 +48,6 @@ public class movementplayer : MonoBehaviour
     GameObject[] goArray;
     ArrayList enemies = new ArrayList();
 
-
     void Start()
     {
         rigidBody = GetComponent<Rigidbody2D>();
@@ -238,7 +237,7 @@ public class movementplayer : MonoBehaviour
     {
         //Check enemies again, in case any have died
         EnemiesCheck();
-
+        CameraShaker.Instance.ShakeCamera(3f, .075f);
         Vector2 enemyDir;
         float distance = maxShootingDistance;
         GameObject closestEnemy = null;
