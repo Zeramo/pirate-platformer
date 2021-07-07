@@ -12,55 +12,83 @@ public class movementplayer : MonoBehaviour
     private bool animationDashing = false;
     private bool isStabbing = false;
 
-    [Header("Physics Forces")]
+    [Header("Player Properties")]
     public int playerSpeed = 10;
     public int playerJumpPower = 750;
-    public int playerDashPower = 10000;
+    public float playerDashPower = 15f;
+    private float dashTime;
+    public float startDashTime;
+    public int playerHealth = 1;
+    public int meleeDamage = 1;
+    public int shotDamage = 2;
+    public float maxShootingDistance = 25f;
 
     private float moveX;
 
     [Header("Player Status")]
     public bool isGrounded;
     public bool doubleJump;                 //Player has another jump available mid-air
-    public bool facingRight = true;
 
     [Header("Collision Checks")]
     public float coyote = .08f;
     public float groundBuffer = .15f;
     public float footOffset = .41f;         //Adjust, if Box Collider X size is changed
     public LayerMask platformsLayer;
+    public LayerMask enemyLayer;
 
     float playerHeight;
 
     BoxCollider2D boxCollider;
+    BoxCollider2D swordCollider;
     Rigidbody2D rigidBody;
+    int direction = 1;
+    float spawnXScale;
     private BoxCollider2D boxCollider2d;
-    // Start is called before the first frame update
+
+    GameObject[] goArray;
+    ArrayList enemies = new ArrayList();
+
+
     void Start()
     {
         rigidBody = GetComponent<Rigidbody2D>();
         boxCollider = GetComponent<BoxCollider2D>();
+        swordCollider = GetComponentInChildren<BoxCollider2D>();
         boxCollider2d = transform.GetComponent<BoxCollider2D>();
 
+        platformsLayer = LayerMask.GetMask("Platforms");
+        enemyLayer = LayerMask.GetMask("Enemies");
+
+        spawnXScale = transform.localScale.x;
+
+        dashTime = startDashTime;
         isGrounded = true;
         doubleJump = false;
 
         playerHeight = boxCollider.size.y;
+
+        //If enemies are spawned while the game is running, move to Update
+        EnemiesCheck();
     }
 
-    // Update is called once per frame
+    
     void Update()
     {
         CheckJumpOrDash();
         CheckShootOrMelee();
         AnimatePlayer();
+        if (isDashing)
+        {
+            animationDashing = false;
+            Dash();
+        }
+            
     }
 
     void FixedUpdate()
     {
         GroundedCheck();
-         MovementXAxis();
-        
+        MovementXAxis();
     }
 
     void CheckJumpOrDash(){
@@ -69,10 +97,12 @@ public class movementplayer : MonoBehaviour
         if(Input.GetButtonDown("Dash") && isGrounded == true)
         {
             doubleJump = false;
+            animationDashing = true;
             Dash();
         } else if (Input.GetButtonDown("Dash") && doubleJump)
         {
             doubleJump = false;
+            animationDashing = true;
             Dash();
         } else if(Input.GetButtonDown("Jump") && isGrounded == true)
         {
@@ -94,6 +124,7 @@ public class movementplayer : MonoBehaviour
         {
             Debug.Log("shooting");
             isStabbing = false;
+            Shoot();
         } else{
             isStabbing = false;
         }
@@ -130,14 +161,25 @@ public class movementplayer : MonoBehaviour
         Debug.DrawRay(boxCollider2d.bounds.center - new Vector3(boxCollider2d.bounds.extents.x, 0), Vector2.down * (boxCollider2d.bounds.extents.y + extraHeightText), rayColor);
         Debug.DrawRay(boxCollider2d.bounds.center - new Vector3(boxCollider2d.bounds.extents.x, boxCollider2d.bounds.extents.y + extraHeightText), Vector2.right * (boxCollider2d.bounds.extents.x * 2f), rayColor);
 
-        Debug.Log(raycastHit.collider);
         if(raycastHit.collider != null){
             isGrounded = true;
-            animationDashing = false;
         } else{
             isGrounded = false;
         }
               
+    }
+
+    void EnemiesCheck()
+    {
+        goArray = FindObjectsOfType<GameObject>();
+        enemies = new ArrayList();
+        Debug.Log(goArray.Length + " total game objects");
+        for (int i = 0; i < goArray.Length; i++)
+        {
+            if (goArray[i].name.Equals("Colliders"))
+                enemies.Add(goArray[i]);
+        }
+        Debug.Log(enemies.Count + " enemies detected");
     }
 
     void MovementXAxis(){
@@ -145,35 +187,27 @@ public class movementplayer : MonoBehaviour
 
         if(rigidBody.velocity.x < -10.0 || rigidBody.velocity.x > 10.0 )
         {
-            isDashing = false;
             Debug.Log("End Dash");
         }
-        if(isDashing == false)  //Move on x Axis if Dash is Over
+        if(!isDashing)  //Move on x Axis if Dash is Over
         {
             //get input speed
             moveX = Input.GetAxis("Horizontal");
             //Player direction update
-            if (moveX < 0.0f && facingRight == true){
+            if (moveX * direction < 0)
                 FlipPlayer();
-            }
-            else if(moveX > 0.0f && facingRight ==false){
-                FlipPlayer();
-            }
 
             //Physics
             rigidBody.velocity = new Vector2 (moveX * playerSpeed, rigidBody.velocity.y);
 
         }
-
-
-
     }
 
     void AnimatePlayer() {
         animator.SetFloat("SpeedX", Mathf.Abs(Input.GetAxis("Horizontal")));
         animator.SetFloat("SpeedY", Mathf.Abs(rigidBody.velocity.y));
         animator.SetBool("isGrounded", isGrounded);
-        animator.SetBool("isDashing", isDashing);
+        animator.SetBool("animationDashing", animationDashing);
         animator.SetBool("isStabbing", isStabbing);
     }
 
@@ -184,37 +218,109 @@ public class movementplayer : MonoBehaviour
     }
 
     void Dash(){
-        rigidBody.velocity = Vector3.zero;
-        rigidBody.angularVelocity = 0f;
+        if (dashTime <= 0)
+        {
+            dashTime = startDashTime;
+            isDashing = false;
+            rigidBody.velocity = Vector2.zero;
+            return;
+        }           
+        else
+        {
+            isDashing = true;
+            dashTime -= Time.deltaTime;
 
-        if(facingRight == false)
-        {
-            rigidBody.AddForce(Vector2.left * playerDashPower);
-        }else
-        {
-            rigidBody.AddForce(Vector2.right * playerDashPower);
+            rigidBody.velocity = new Vector2(direction, 0) * playerDashPower;
         }
-        isDashing = true;
-        animationDashing = true;
-        Debug.Log("Start Dash");
     }
 
-    void FlipPlayer(){ // replace once Animations come
-        facingRight = !facingRight;
-        Vector2 localScale = gameObject.transform.localScale;
-        localScale.x *= -1;
-        transform.localScale = localScale;
+    void Shoot()
+    {
+        //Check enemies again, in case any have died
+        EnemiesCheck();
 
+        Vector2 enemyDir;
+        float distance = maxShootingDistance;
+        GameObject closestEnemy = null;
+        Vector2 closestEnemyDir = Vector2.zero;
+        foreach (GameObject enemy in enemies)
+        {
+            enemyDir = new Vector2(enemy.transform.position.x - this.transform.position.x, enemy.transform.position.y - this.transform.position.y);
+            if (enemyDir.magnitude < distance)
+            {
+                distance = enemyDir.magnitude;
+                Debug.Log("New closest enemy found");
+                closestEnemy = enemy;
+                closestEnemyDir = enemyDir;
+            }                
+        }
+        if (closestEnemy)
+        {
+            Vector2 offset = new Vector2(.3f, .5f);
+            RaycastHit2D hitObstacle = MyRaycast(offset, closestEnemyDir, distance, platformsLayer);
+            Color color = hitObstacle ? Color.red : Color.green;
+            Debug.DrawRay(new Vector2(transform.position.x, transform.position.y) + offset, closestEnemyDir, color, 5f);
+            if (hitObstacle)
+                return;
+
+            Debug.Log(closestEnemy.name);
+            closestEnemy.GetComponentInParent<SwordfishBehavior>().EnemyTakeDamage(shotDamage);
+        }
     }
 
-    void OnCollision2D(Collision2D col){
-        Debug.Log("Player has collided with " + col.collider);
-        if(col.gameObject.tag == "ground"){
-            isGrounded = true;
+    void FlipPlayer()
+    {
+        //Flip direction
+        direction *= -1;
+        //Get current scale
+        Vector3 scale = transform.localScale;
+        //Set x scale to scale recorded on spawn times the direction
+        scale.x = spawnXScale * direction;
+        //Apply scale
+        transform.localScale = scale;
+    }
 
+    public void PlayerTakeDamage(int damage, Collider2D col)
+    {
+        playerHealth -= damage;
+
+        //If player health is above 0, do nothing else
+        if (playerHealth > 0)
+            return;
+        
+        //Invoke(nameof(DestroyPlayer), .5f);
+        gameObject.SetActive(false);
+        
+    }
+
+    void DestroyPlayer()
+    {
+        Destroy(gameObject);
+    }
+
+    void OnCollisionEnter2D(Collision2D col){
+        //Debug.Log("Player has collided with " + col.collider);
+        if(col.gameObject.layer == LayerMask.NameToLayer("Enemies"))
+        {
+            Debug.Log("Player has collided with enemy");
+         
+        }
+        if (col.gameObject.layer == LayerMask.NameToLayer("Platforms"))
+        {
+            //Debug.Log("Player has collided with platforms");
         }
         
     }
+    
+    private void OnTriggerEnter2D(Collider2D col)
+    {
+        if(col.gameObject.layer == LayerMask.NameToLayer("Enemies") && (animator.GetCurrentAnimatorStateInfo(0).IsName("pirate_stab") || animator.GetCurrentAnimatorStateInfo(0).IsName("pirate_dash")))
+        {
+            Debug.Log("A trigger has collided with " + col.gameObject.name);
+            col.gameObject.GetComponentInParent<SwordfishBehavior>().EnemyTakeDamage(meleeDamage);
+        }
+    }
+    
 
     RaycastHit2D MyRaycast(Vector2 offset, Vector2 direction, float length, LayerMask mask)
     {
@@ -227,7 +333,6 @@ public class movementplayer : MonoBehaviour
         Color color = hit ? Color.red : Color.green;
         Debug.DrawRay(pos + offset, direction * length, color);
         
-
         return hit;
     }
 }
