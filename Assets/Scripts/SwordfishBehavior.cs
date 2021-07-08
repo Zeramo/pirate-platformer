@@ -191,13 +191,15 @@ public class SwordfishBehavior : MonoBehaviour
         Destroy(gameObject);
     }
 
+    //This function is called automatically by Unity's physics engine/detector/whatever
     void OnCollisionEnter2D(Collision2D col)
     {
         //Debug.Log("Enemy has collided with " + col.collider);
         if (col.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
             Debug.Log("Enemy has collided with Player");
-
+            //Uncomment, when player is supposed to take damage on contact with the enemy.
+            //col.gameObject.GetComponent<movementplayer>().PlayerTakeDamage(enemyDamage);
         }
         if (col.gameObject.layer == LayerMask.NameToLayer("Platforms"))
         {
@@ -206,13 +208,16 @@ public class SwordfishBehavior : MonoBehaviour
 
     }
     
-    
+    //This function is called automatically by Unity's physics engine/detector/whatever
+    //The sword of the swordfish is marked as a trigger. When it collides with something, this function is called
     private void OnTriggerEnter2D(Collider2D col)
     {
+        //When the object the trigger collided with is on the player layer...
         if (col.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
             Debug.Log("A trigger has collided with " + col.gameObject.name);
-            col.gameObject.GetComponent<movementplayer>().PlayerTakeDamage(enemyDamage, col);
+            //... the player takes damage
+            col.gameObject.GetComponent<movementplayer>().PlayerTakeDamage(enemyDamage);
         }
     }
     
