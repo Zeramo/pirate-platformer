@@ -11,6 +11,7 @@ public class movementplayer : MonoBehaviour
     private bool isDashing = false;
     private bool animationDashing = false;
     private bool isStabbing = false;
+    private bool hasBeenDamaged = false;
 
     [Header("Player Properties")]
     public int playerSpeed = 10;
@@ -22,6 +23,9 @@ public class movementplayer : MonoBehaviour
     public int meleeDamage = 1;
     public int shotDamage = 2;
     public float maxShootingDistance = 25f;
+    public float startInvincibilityTime;
+    private float invincibilityTime;
+    public int gold;
 
     private float moveX;
 
@@ -65,6 +69,9 @@ public class movementplayer : MonoBehaviour
 
         //StartDashTime holds total dash time, dashTime how much time there is left in the dash
         dashTime = startDashTime;
+
+        //startInvincibilityTime holds total invincibilityTime, called when the player gets damaged
+        invincibilityTime = startInvincibilityTime;
 
         //At the start, assume player is grounded and has no double jump 
         isGrounded = true;
@@ -231,6 +238,8 @@ public class movementplayer : MonoBehaviour
         animator.SetBool("isGrounded", isGrounded);
         animator.SetBool("animationDashing", animationDashing);
         animator.SetBool("isStabbing", isStabbing);
+        animator.SetBool("hasBeenDamaged", hasBeenDamaged);
+        if (hasBeenDamaged) hasBeenDamaged = false;
     }
 
     void Jump(){
@@ -328,15 +337,44 @@ public class movementplayer : MonoBehaviour
 
     public void PlayerTakeDamage(int damage)
     {
-        playerHealth -= damage;
+
+        if (invincibilityTime <= 0) {
+            //Reset invincibilityTime
+            invincibilityTime = startInvincibilityTime;
+            hasBeenDamaged = false;
+        }           
+        else
+        {
+            //playerHealth -= damage;
+            //test: if the player runs out of gold, they die
+            gold -= damage;
+            hasBeenDamaged = true;
+            
+            invincibilityTime -= Time.deltaTime;
+
+            rigidBody.velocity = Vector3.zero;
+            rigidBody.angularVelocity = 0f;
+            rigidBody.AddForce(Vector2.up * 500);
+            //rigidBody.velocity = new Vector2(direction, 0) * playerDashPower;
+        }
 
         //If player health is above 0, do nothing else
-        if (playerHealth > 0)
+        if (/*playerHealth*/ gold > 0)
             return;
         
         //Invoke(nameof(DestroyPlayer), .5f);
         gameObject.SetActive(false);
         
+    }
+
+    public void incrementGold (int amount)
+    {
+        gold += amount;
+    }
+
+    private void decrementGold (int amount)
+    {
+        gold -= amount;
     }
 
     void DestroyPlayer()

@@ -5,15 +5,18 @@ using UnityEngine;
 public class EnemyHealth : MonoBehaviour
 {
     public int enemyHealth = 1;
+    public int goldValue = 2;
+    public GameObject goldPile;
 
     BoxCollider2D[] subBoxColliders;
     Rigidbody2D rigidBody;
 
     // Start is called before the first frame update
-    void Start()
+    void Start(int goldValue)
     {
         subBoxColliders = GetComponentsInChildren<BoxCollider2D>();
         rigidBody = rigidBody = GetComponent<Rigidbody2D>();
+        this.goldValue = goldValue;
     }
 
 
@@ -38,5 +41,12 @@ public class EnemyHealth : MonoBehaviour
     void DestroyEnemy()
     {
         Destroy(gameObject);
+        spawnGold();
+    }
+
+    void spawnGold()
+    {
+        GameObject goldPileInstance = Instantiate(goldPile) as GameObject;
+        goldPileInstance.transform.position = gameObject.transform.position;
     }
 }
