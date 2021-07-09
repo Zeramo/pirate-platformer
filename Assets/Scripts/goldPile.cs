@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class goldPile : MonoBehaviour
 {
-    public int goldAmount;
+    public int goldValue;
     private float lifeTime = 0f;
     private float minLifeTime = .5f;
     private float maxLifeTime = 15f;
 
-    void Start(int goldAmount) {
-        this.goldAmount = goldAmount;
-    }
+    /*void Start() {
+        GetComponent<Rigidbody2D>().AddForce(Vector2.up);
+    }*/
 
     void Update() {
         lifeTime += Time.deltaTime;
@@ -22,8 +22,12 @@ public class goldPile : MonoBehaviour
         if (col.gameObject.layer == LayerMask.NameToLayer("Player") && lifeTime >= minLifeTime || lifeTime >= maxLifeTime)
         {
             Debug.Log("player has collected gold");
-            col.gameObject.GetComponent<movementplayer>().incrementGold(goldAmount);
+            col.gameObject.GetComponent<movementplayer>().incrementGold(goldValue);
             Destroy(gameObject);
         }
+    }
+
+    public void setGoldValue (int goldValue) {
+        this.goldValue = goldValue;
     }
 }

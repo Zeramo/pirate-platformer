@@ -22,6 +22,8 @@ public class SwordfishBehavior : MonoBehaviour
     float groundRCLength = .5f;                //Length of the Raycast directed to the ground
     EnemyHealth health;
     int hp;
+    public float maxRecoveryTime = .5f;
+    private float recoveryTime;
 
     [Header("Attack Properties")]
     public float timeBetweenAttacks = 3f;
@@ -44,6 +46,7 @@ public class SwordfishBehavior : MonoBehaviour
 
     int speedXParamID;
     int jumpParamID;
+    int damagedParamID;
 
     void Start()
     {
@@ -61,13 +64,17 @@ public class SwordfishBehavior : MonoBehaviour
         anim = GetComponent<Animator>();
         speedXParamID = Animator.StringToHash("SpeedX");
         jumpParamID = Animator.StringToHash("isJumping");
+        damagedParamID = Animator.StringToHash("hasBeenDamaged");
 
         health = GetComponent<EnemyHealth>();
         hp = health.enemyHealth;
+
+        recoveryTime = maxRecoveryTime;
     }
 
     void Update()
     {
+        updateDamage();
         CheckSurroundings();
         Move();
         AnimateSwordfish();
@@ -222,6 +229,38 @@ public class SwordfishBehavior : MonoBehaviour
     {
         anim.SetBool(jumpParamID, !jumpAvailable);
         anim.SetFloat(speedXParamID, Mathf.Abs(rigidBody.velocity.x));
+        anim.SetBool(damagedParamID, health.getHasBeenDamaged());
+    }
+
+    /*bool checkForDamage() {
+        bool hasBeenDamaged = health.getHasBeenDamaged();
+        if (hasBeenDamaged) {
+            rigidBody.velocity = Vector2.zero;
+            rigidBody.angularVelocity = 0f;
+
+            rigidBody.AddForce(new Vector2(direction * -2, enemyJumpForce/2), ForceMode2D.Impulse);
+        }
+        return hasBeenDamaged;
+    }*/
+
+    void updateDamage() {
+
+        if (recoveryTime <= 0) {
+            health.setHasBeenDamaged(false);
+            recoveryTime = maxRecoveryTime;
+        }
+
+        else if (health.getHasBeenDamaged()) {
+
+            if (recoveryTime == maxRecoveryTime) {
+            rigidBody.velocity = Vector2.zero;
+            rigidBody.angularVelocity = 0f;
+
+            rigidBody.AddForce(new Vector2((player.position.x - rigidBody.position.x) * -7.5f, enemyJumpForce*.75f), ForceMode2D.Impulse);
+            }
+            
+            recoveryTime -= Time.deltaTime;
+        }
     }
 
     RaycastHit2D MyRaycast(Vector2 offset, Vector2 direction, float length, LayerMask mask)

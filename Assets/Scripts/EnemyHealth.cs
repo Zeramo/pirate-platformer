@@ -7,35 +7,42 @@ public class EnemyHealth : MonoBehaviour
     public int enemyHealth = 1;
     public int goldValue = 2;
     public GameObject goldPile;
+    private bool enemyAlive = true;
+    public bool hasBeenDamaged = false;
 
     BoxCollider2D[] subBoxColliders;
     Rigidbody2D rigidBody;
 
     // Start is called before the first frame update
-    void Start(int goldValue)
+    void Start()
     {
         subBoxColliders = GetComponentsInChildren<BoxCollider2D>();
         rigidBody = rigidBody = GetComponent<Rigidbody2D>();
-        this.goldValue = goldValue;
     }
 
 
     public void EnemyTakeDamage(int damage)
     {
-        enemyHealth -= damage;
 
-        //If enemy health is above 0, do nothing
-        if (enemyHealth > 0)
-            return;
+        if (!hasBeenDamaged) {
 
-        //Destroy game object after 0.5 seconds, disable trigger colliders and allow enemy to fall over
-        Invoke(nameof(DestroyEnemy), .5f);
-        foreach (BoxCollider2D collider in subBoxColliders)
-        {
-            if (collider.isTrigger)
-                collider.enabled = false;
+            enemyHealth -= damage;
+            hasBeenDamaged = true;
+
+            //If enemy health is above 0, do nothing
+            if (enemyHealth > 0 || !enemyAlive)
+                return;
+
+            //Destroy game object after 0.5 seconds, disable trigger colliders and allow enemy to fall over
+            enemyAlive = false;
+            Invoke(nameof(DestroyEnemy), .5f);
+            foreach (BoxCollider2D collider in subBoxColliders)
+            {
+                if (collider.isTrigger)
+                    collider.enabled = false;
+            }
+            rigidBody.freezeRotation = false;
         }
-        rigidBody.freezeRotation = false;
     }
 
     void DestroyEnemy()
@@ -46,7 +53,16 @@ public class EnemyHealth : MonoBehaviour
 
     void spawnGold()
     {
-        GameObject goldPileInstance = Instantiate(goldPile) as GameObject;
-        goldPileInstance.transform.position = gameObject.transform.position;
+        GameObject goldPileInstance = Instantiate(goldPile);
+        goldPileInstance.transform.position = gameObject.transform.position + Vector3.up;
+        goldPileInstance.GetComponent<goldPile>().setGoldValue(goldValue);
+    }
+
+    public bool getHasBeenDamaged() {
+        return hasBeenDamaged;
+    }
+
+    public void setHasBeenDamaged(bool hasBeenDamaged) {
+        this.hasBeenDamaged = hasBeenDamaged;
     }
 }
