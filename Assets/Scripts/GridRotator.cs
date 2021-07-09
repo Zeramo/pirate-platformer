@@ -26,7 +26,7 @@ public class GridRotator : MonoBehaviour
             time = 0f;
         //Add time since last Update() to time
         time += Time.deltaTime;
-        Debug.Log(time);
+
         //Calculate rotation value as sin function
         rotValue = amplitude * Mathf.Sin(period * time);
 

@@ -15,9 +15,10 @@ public class SeaUrchinBehaviour : MonoBehaviour
     [Header("Enemy Properties")]
     public float sightRange;                    //If the player is in sight range, the enemy will start moving
     bool playerInSight;
-    public int enemyHealth = 1;
     public int enemyDamage = 1;
     float groundRCLength = .5f;                //Length of the Raycast directed to the ground
+    EnemyHealth health;
+    int hp;
 
     [Header("Attack Properties")]
     private Transform player;
@@ -47,6 +48,9 @@ public class SeaUrchinBehaviour : MonoBehaviour
 
         rigidBody = GetComponent<Rigidbody2D>();
         spawnXScale = -transform.localScale.x;
+
+        health = GetComponent<EnemyHealth>();
+        hp = health.enemyHealth;
     }
 
     // Update is called once per frame
@@ -79,7 +83,7 @@ public class SeaUrchinBehaviour : MonoBehaviour
         //Calculate if player is in sight range. Line of sight is disregarded, but could be implemented with a raycast
         playerInSight = moveDir.magnitude < sightRange;
 
-        if (enemyHealth > 0)
+        if (hp > 0)
         {
             //If player is not in sight, Idle. Can be replaced by a Patrolling function
             if (!playerInSight) Idle();

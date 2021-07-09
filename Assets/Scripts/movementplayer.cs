@@ -310,7 +310,7 @@ public class movementplayer : MonoBehaviour
             //Shake the camera
             CameraShaker.Instance.ShakeCamera(3f, .075f);
             //Enemy takes damage
-            closestEnemy.GetComponentInParent<SwordfishBehavior>().EnemyTakeDamage(shotDamage);
+            closestEnemy.GetComponentInParent<EnemyHealth>().EnemyTakeDamage(shotDamage);
         }
     }
 
@@ -366,7 +366,7 @@ public class movementplayer : MonoBehaviour
         if(col.gameObject.layer == LayerMask.NameToLayer("Enemies") && (animator.GetCurrentAnimatorStateInfo(0).IsName("pirate_stab") || animator.GetCurrentAnimatorStateInfo(0).IsName("pirate_dash")))
         {
             Debug.Log("A trigger has collided with " + col.gameObject.name);
-            col.gameObject.GetComponentInParent<SwordfishBehavior>().EnemyTakeDamage(meleeDamage);
+            col.gameObject.GetComponentInParent<EnemyHealth>().EnemyTakeDamage(meleeDamage);
         }
     }
     

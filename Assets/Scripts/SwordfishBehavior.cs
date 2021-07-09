@@ -18,9 +18,10 @@ public class SwordfishBehavior : MonoBehaviour
     public float sightRange;                    //If the player is in sight range, the enemy will start moving
     public float attackRange;                   //If the player is in attack range, the enemy will start dashing
     bool playerInSight, playerInRange;
-    public int enemyHealth = 1;
     public int enemyDamage = 1;
     float groundRCLength = .5f;                //Length of the Raycast directed to the ground
+    EnemyHealth health;
+    int hp;
 
     [Header("Attack Properties")]
     public float timeBetweenAttacks = 3f;
@@ -60,6 +61,9 @@ public class SwordfishBehavior : MonoBehaviour
         anim = GetComponent<Animator>();
         speedXParamID = Animator.StringToHash("SpeedX");
         jumpParamID = Animator.StringToHash("isJumping");
+
+        health = GetComponent<EnemyHealth>();
+        hp = health.enemyHealth;
     }
 
     void Update()
@@ -94,7 +98,7 @@ public class SwordfishBehavior : MonoBehaviour
         //Calculate if player is in attack range. Same behavior as above
         playerInRange = moveDir.magnitude < attackRange;
 
-        if (enemyHealth > 0)
+        if (hp > 0)
         {
             //If player is not in sight, Idle. Can be replaced by a Patrolling function
             if (!playerInSight) Idle();
@@ -171,26 +175,6 @@ public class SwordfishBehavior : MonoBehaviour
         rigidBody.angularVelocity = 0f;
     }
 
-    public void EnemyTakeDamage(int damage)
-    {
-        enemyHealth -= damage;
-
-        //If enemy health is above 0, do nothing
-        if (enemyHealth > 0)
-            return;
-
-        //Destroy game object after 0.5 seconds, disable colliders and allow enemy to fall over
-        Invoke(nameof(DestroyEnemy), .5f);
-        boxColliderBody.enabled = false;
-        boxColliderSword.enabled = false;
-        rigidBody.freezeRotation = false;
-    }
-
-    void DestroyEnemy()
-    {
-        Destroy(gameObject);
-    }
-
     //This function is called automatically by Unity's physics engine/detector/whatever
     void OnCollisionEnter2D(Collision2D col)
     {
@@ -213,7 +197,7 @@ public class SwordfishBehavior : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D col)
     {
         //When the object the trigger collided with is on the player layer...
-        if (col.gameObject.layer == LayerMask.NameToLayer("Player"))
+        if (col.gameObject.layer == LayerMask.NameToLayer("Player") && hp > 0)
         {
             Debug.Log("A trigger has collided with " + col.gameObject.name);
             //... the player takes damage

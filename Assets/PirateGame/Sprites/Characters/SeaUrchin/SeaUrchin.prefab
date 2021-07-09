@@ -71,6 +71,7 @@ GameObject:
   - component: {fileID: 6382562555550237653}
   - component: {fileID: 6382562555550237654}
   - component: {fileID: 6382562555550237655}
+  - component: {fileID: 2118465907144713619}
   m_Layer: 0
   m_Name: SeaUrchin
   m_TagString: Untagged
@@ -233,3 +234,16 @@ MonoBehaviour:
   sightRange: 30
   enemyHealth: 1
   enemyDamage: 1
+--- !u!114 &2118465907144713619
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6382562555550237641}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8faa6c0373ebb294a97472df3a1be87f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyHealth: 1
