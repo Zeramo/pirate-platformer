@@ -9,13 +9,13 @@ public class SoundManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        playerHurtSound = GetParent("Scripts").Audio.Character.Load<AudioClip> ("playerHurt");
+        /*playerHurtSound = .Audio.Character.Load<AudioClip> ("playerHurt");
         playerJumpSound = Assets.Audio.Character.Load<AudioClip> ("playerJump");
         playerShootSound = Assets.Audio.Character.Load<AudioClip> ("playerShoot");
         playerAttackSound = Assets.Audio.Character.Load<AudioClip> ("playerAttack");
         playerDashSound = Assets.Audio.Character.Load<AudioClip> ("playerDash");
 
-        audioSrc = GetComponent<AudioSource> ();
+        audioSrc = GetComponent<AudioSource> ();*/
     }
 
     // Update is called once per frame
