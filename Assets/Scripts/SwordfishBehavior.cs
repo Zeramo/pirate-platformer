@@ -70,6 +70,8 @@ public class SwordfishBehavior : MonoBehaviour
         hp = health.enemyHealth;
 
         recoveryTime = maxRecoveryTime;
+
+        GameManager.RegisterEnemy();
     }
 
     void Update()

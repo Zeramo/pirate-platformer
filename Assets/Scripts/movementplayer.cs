@@ -86,6 +86,9 @@ public class movementplayer : MonoBehaviour
     
     void Update()
     {
+        if (GameManager.IsGameOver())
+            return;
+
         CheckJumpOrDash();
         CheckShootOrMelee();
         AnimatePlayer();         
@@ -93,6 +96,14 @@ public class movementplayer : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (GameManager.IsGameOver())
+        {
+            rigidBody.velocity = Vector3.zero;
+            rigidBody.angularVelocity = 0f;
+            return;
+        }
+            
+
         GroundedCheck();
         MovementXAxis();
     }

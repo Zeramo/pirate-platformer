@@ -36,6 +36,8 @@ public class EnemyHealth : MonoBehaviour
             //Destroy game object after 0.5 seconds, disable trigger colliders and allow enemy to fall over
             enemyAlive = false;
             Invoke(nameof(DestroyEnemy), .5f);
+            GameManager.RemoveEnemy();
+
             foreach (BoxCollider2D collider in subBoxColliders)
             {
                 if (collider.isTrigger)
