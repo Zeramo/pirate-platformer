@@ -9,9 +9,9 @@ public class goldPile : MonoBehaviour
     private float minLifeTime = .5f;
     private float maxLifeTime = 15f;
 
-    /*void Start() {
-        GetComponent<Rigidbody2D>().AddForce(Vector2.up);
-    }*/
+    void Start() {
+        GetComponent<Rigidbody2D>().AddForce(Vector2.up*10);
+    }
 
     void Update() {
         lifeTime += Time.deltaTime;
@@ -19,7 +19,7 @@ public class goldPile : MonoBehaviour
 
     void OnCollisionEnter2D (Collision2D col)
     {
-        if (col.gameObject.layer == LayerMask.NameToLayer("Player") && lifeTime >= minLifeTime || lifeTime >= maxLifeTime)
+        if (col.gameObject.layer == LayerMask.NameToLayer("Player") /*&& lifeTime >= minLifeTime*/ || lifeTime >= maxLifeTime)
         {
             Debug.Log("player has collected gold");
             col.gameObject.GetComponent<movementplayer>().incrementGold(goldValue);

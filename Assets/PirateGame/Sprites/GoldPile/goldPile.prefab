@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2422473833134265639}
   - component: {fileID: 2422473833134265636}
   - component: {fileID: 2422473833134265638}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: goldPile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -161,6 +161,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2422473833134265640}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 28ac5723f6da7674f963cfd6d2637e86, type: 3}
+  m_Script: {fileID: 11500000, guid: 21990c3aa66311440bc5fc89fd1c05d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  goldValue: 0
