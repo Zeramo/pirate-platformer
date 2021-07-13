@@ -373,9 +373,9 @@ public class movementplayer : MonoBehaviour
         if (/*playerHealth*/ gold > 0)
             return;
         
-        //Invoke(nameof(DestroyPlayer), .5f);
         gameObject.SetActive(false);
-        
+        DestroyPlayer();
+        GameManager.PlayerDied();
     }
 
     public void incrementGold (int amount)

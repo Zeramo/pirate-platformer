@@ -76,6 +76,12 @@ public class SwordfishBehavior : MonoBehaviour
 
     void Update()
     {
+        if (GameManager.IsPlayerDead())
+        {
+            Idle();
+            return;
+        }
+            
         updateDamage();
         CheckSurroundings();
         Move();

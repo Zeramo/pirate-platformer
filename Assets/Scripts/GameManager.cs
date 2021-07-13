@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
     int goldCollected;
     int numDeaths;
     bool isGameOver;
+    bool playerDead;
 
     int numEnemies;
     public bool allowExit;
@@ -43,7 +44,8 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         if (isGameOver)
-            return;        
+            return;
+
     }
 
     public static bool IsGameOver()
@@ -89,7 +91,13 @@ public class GameManager : MonoBehaviour
         //current.numDeaths++;
         //UIManager.UpdateDeathUI(current.numDeaths);
 
+        current.playerDead = true;
         current.Invoke("RestartScene", current.deathDuration);
+    }
+
+    public static bool IsPlayerDead()
+    {
+        return current.playerDead;
     }
 
     public static void PlayerWon()
@@ -97,14 +105,18 @@ public class GameManager : MonoBehaviour
         if (current == null)
             return;
 
-        current.isGameOver = true;
-
-        Initiate.Fade("Level" + (current.sceneIndex + 1), current.loadToColor, .75f);
+        Initiate.Fade("Level" + (current.sceneIndex + 1), current.loadToColor, 1f);
         current.sceneIndex++;
+    }
+
+    public void PlayerRespawned()
+    {
+        current.playerDead = false;
     }
 
     void RestartScene()
     {
-        
+        Initiate.Fade("Level" + current.sceneIndex, current.loadToColor, .5f);
+        Invoke("PlayerRespawned", 2f);
     }
 }

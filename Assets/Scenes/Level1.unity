@@ -13085,6 +13085,10 @@ PrefabInstance:
       value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 4985083534955574821, guid: 4f0b2926fdfbf7b409231616b3de1c6f, type: 3}
+      propertyPath: playerHealth
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4985083534955574821, guid: 4f0b2926fdfbf7b409231616b3de1c6f, type: 3}
       propertyPath: startInvincibilityTime
       value: 0.25
       objectReference: {fileID: 0}
