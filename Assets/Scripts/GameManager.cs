@@ -15,6 +15,8 @@ public class GameManager : MonoBehaviour
     int numDeaths;
     bool isGameOver;
     bool playerDead;
+    int score;
+    int highScore;
 
     int numEnemies;
     public bool allowExit;
@@ -32,7 +34,8 @@ public class GameManager : MonoBehaviour
 
         current = this;
         current.sceneIndex = 1;
-
+        current.score = 0;
+        current.highScore = 0;
         numEnemies = 0;
 
         allowExit = false;
@@ -112,6 +115,29 @@ public class GameManager : MonoBehaviour
     public void PlayerRespawned()
     {
         current.playerDead = false;
+    }
+
+    public static void IncreaseScore(int score)
+    {
+        current.score += score;
+        if (current.score > current.highScore)
+            current.highScore = current.score;
+        Debug.Log(current.score);
+    }
+
+    public static void DecreaseScore(int score)
+    {
+        if (current.score - score <= 0)
+            current.score = 0;
+        else
+            current.score -= score;
+        
+        Debug.Log(current.score);
+    }
+
+    public static int GetHighScore()
+    {
+        return current.highScore;
     }
 
     void RestartScene()

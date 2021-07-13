@@ -26,8 +26,11 @@ public class goldPile : MonoBehaviour
             Debug.Log("player has collected gold");
             col.gameObject.GetComponent<movementplayer>().incrementGold(goldValue);
 
-             //plays according audio cue
-            //audioManager.Play("goldPickUp");
+
+            //plays according audio cue
+            audioManager.Play("goldPickUp");
+
+            GameManager.IncreaseScore(goldValue);
 
             Destroy(gameObject);
         }

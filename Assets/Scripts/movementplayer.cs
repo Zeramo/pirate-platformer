@@ -385,6 +385,8 @@ public class movementplayer : MonoBehaviour
             rigidBody.AddForce(Vector2.up * 500);
             //rigidBody.velocity = new Vector2(direction, 0) * playerDashPower;
 
+            GameManager.DecreaseScore(damage);
+
             //plays according audio cue
             audioManager.Play("playerHurt");
         }
