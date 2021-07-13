@@ -1,0 +1,91 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &8145274292223833361
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8145274292223833363}
+  - component: {fileID: 8145274292223833360}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8145274292223833363
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8145274292223833361}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.32252052, y: 0.42095464, z: -82.04946}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8145274292223833360
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8145274292223833361}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6ba9e4359863f946a08427f0eb5e369, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds:
+  - name: playerHurt
+    clip: {fileID: 8300000, guid: a3dc87438ea644b95915694da20e0fa8, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: playerJump
+    clip: {fileID: 8300000, guid: d2e675d6622d24295abe6c09d92ecf38, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: playerDash
+    clip: {fileID: 8300000, guid: e32e3bde5559afb4cad3ef963cc96446, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: playerStab
+    clip: {fileID: 8300000, guid: d8bf57a57cb4a7e4a97d06ab4b136fca, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: playerShoot
+    clip: {fileID: 8300000, guid: af66162561d2eed40ad49268cab318bb, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: Swordfish
+    clip: {fileID: 8300000, guid: cc0b31f8043b6854dbcba03f9e9f3ae8, type: 3}
+    volume: 1
+    pitch: 1.02
+    source: {fileID: 0}
+  - name: SwordfishHurt
+    clip: {fileID: 8300000, guid: 471cc7b80fcd51e4a9055d009dbed822, type: 3}
+    volume: 1
+    pitch: 1.12
+    source: {fileID: 0}
+  - name: SeaUrchin
+    clip: {fileID: 8300000, guid: e0f466aab912bcc4d9937a24582b1d41, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: goldPickUp
+    clip: {fileID: 8300000, guid: 180c0e7b4143b4217a27664c98e6f412, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}

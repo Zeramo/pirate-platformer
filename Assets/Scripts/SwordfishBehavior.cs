@@ -48,6 +48,8 @@ public class SwordfishBehavior : MonoBehaviour
     int jumpParamID;
     int damagedParamID;
 
+    public AudioManager audioManager;
+
     void Start()
     {
         boxColliders = GetComponentsInChildren<BoxCollider2D>();
@@ -118,7 +120,12 @@ public class SwordfishBehavior : MonoBehaviour
             //If player is not in sight, Idle. Can be replaced by a Patrolling function
             if (!playerInSight) Idle();
             //If player is in sight, in attack range, the enemy has not attacked, and there is no obstacle, Attack
-            if (playerInSight && playerInRange && !hasAttacked && !obstacle) Attack();
+            if (playerInSight && playerInRange && !hasAttacked && !obstacle) {
+                Attack();
+
+                //plays according audio cue
+                audioManager.Play("Swordfish");
+            }
             //If player is in sight, but out of range and there is no obstacle, Chase
             if (playerInSight && !playerInRange && !obstacle) Chase();
             //If there is an obstacle, and the enemy can jump, Jump
@@ -265,6 +272,9 @@ public class SwordfishBehavior : MonoBehaviour
             rigidBody.angularVelocity = 0f;
 
             rigidBody.AddForce(new Vector2((player.position.x - rigidBody.position.x) * -7.5f, enemyJumpForce*.75f), ForceMode2D.Impulse);
+
+            //plays according audio cue
+            audioManager.Play("SwordfishHurt");
             }
             
             recoveryTime -= Time.deltaTime;
