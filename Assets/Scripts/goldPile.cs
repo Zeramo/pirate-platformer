@@ -6,13 +6,14 @@ public class goldPile : MonoBehaviour
 {
     public int goldValue;
     private float lifeTime = 0f;
-    private float minLifeTime = .5f;
+    //private float minLifeTime = .5f;
     private float maxLifeTime = 15f;
 
-    //public AudioManager audioManager;
+    public AudioManager audioManager;
 
     void Start() {
         GetComponent<Rigidbody2D>().AddForce(Vector2.up*10);
+        if (audioManager == null) audioManager = FindObjectOfType<AudioManager>();
     }
 
     void Update() {
@@ -28,7 +29,7 @@ public class goldPile : MonoBehaviour
 
 
             //plays according audio cue
-            //audioManager.Play("goldPickUp");
+            audioManager.Play("goldPickUp");
 
             GameManager.IncreaseScore(goldValue);
 

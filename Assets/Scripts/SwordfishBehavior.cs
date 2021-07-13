@@ -74,6 +74,8 @@ public class SwordfishBehavior : MonoBehaviour
         recoveryTime = maxRecoveryTime;
 
         GameManager.RegisterEnemy();
+
+        if (audioManager == null) audioManager = FindObjectOfType<AudioManager>();
     }
 
     void Update()

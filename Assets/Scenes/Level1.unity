@@ -8024,11 +8024,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7317925377669785777, guid: 0faa27b47b95dbd4ca340febd2ffb0ca, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 8.962566
+      value: -0.56
       objectReference: {fileID: 0}
     - target: {fileID: 7317925377669785777, guid: 0faa27b47b95dbd4ca340febd2ffb0ca, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.9179158
+      value: -2.05
       objectReference: {fileID: 0}
     - target: {fileID: 7317925377669785777, guid: 0faa27b47b95dbd4ca340febd2ffb0ca, type: 3}
       propertyPath: m_LocalPosition.z
@@ -8323,6 +8323,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef73001b61a6af74b9674787f784a971, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1139994667
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1139994660}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8faa6c0373ebb294a97472df3a1be87f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyHealth: 1
+  goldValue: 2
+  goldPile: {fileID: 2422473833134265640, guid: 590d5c09d0430af45b3371a2ff693dae, type: 3}
+  hasBeenDamaged: 0
 --- !u!60 &1377276527 stripped
 PolygonCollider2D:
   m_CorrespondingSourceObject: {fileID: -8938785897616295489, guid: fa36815d5afd53f47ab060a83de8a697, type: 3}
@@ -8793,6 +8809,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1835968398}
   - component: {fileID: 1835968399}
+  - component: {fileID: 1835968400}
   m_Layer: 0
   m_Name: Game Manager
   m_TagString: Untagged
@@ -8828,6 +8845,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   deathDuration: 2
   allowExit: 0
+--- !u!114 &1835968400
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1835968397}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d13452c67c593004f8cb71e993f78bd7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  swordFish: {fileID: 7317925377669785778, guid: 0faa27b47b95dbd4ca340febd2ffb0ca, type: 3}
+  minXPosition: -20
+  maxXPosition: 20
+  yPosition: 6
+  spawnTime: 5
 --- !u!1 &2030650638
 GameObject:
   m_ObjectHideFlags: 0
@@ -13231,6 +13265,10 @@ PrefabInstance:
     - target: {fileID: 4103411270324170830, guid: 9ed2868e16e4fa245b94a22ac7034ec1, type: 3}
       propertyPath: m_Name
       value: Octopus
+      objectReference: {fileID: 0}
+    - target: {fileID: 4103411270324170830, guid: 9ed2868e16e4fa245b94a22ac7034ec1, type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 6758931697117033247, guid: 9ed2868e16e4fa245b94a22ac7034ec1, type: 3}
       propertyPath: m_RootOrder
