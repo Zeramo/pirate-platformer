@@ -49,6 +49,8 @@ public class movementplayer : MonoBehaviour
     float spawnXScale;
     private BoxCollider2D boxCollider2d;
 
+    public AudioManager audioManager;
+
     GameObject[] goArray;
     ArrayList enemies = new ArrayList();
 
@@ -122,6 +124,9 @@ public class movementplayer : MonoBehaviour
             doubleJump = false;
             animationDashing = true;
             Dash();
+
+            //plays according audio cue
+            audioManager.Play("playerDash");
         }
         //If player is in the air and wants to dash, disable double jump, start dashing animation and movement
         else if (Input.GetButtonDown("Dash") && doubleJump)
@@ -129,6 +134,9 @@ public class movementplayer : MonoBehaviour
             doubleJump = false;
             animationDashing = true;
             Dash();
+
+            //plays according audio cue
+            audioManager.Play("playerDash");
         }
         //If player jumps while on the ground, enable double jump and start jump movement
         else if(Input.GetButtonDown("Jump") && isGrounded == true)
@@ -150,6 +158,9 @@ public class movementplayer : MonoBehaviour
         {
             Debug.Log("Melee");
             isStabbing = true;
+
+            //plays according audio cue
+            audioManager.Play("playerStab");
         }
         //When player wants to shoot and is not dashing, reset animation trigger and player shoots
         else if (Input.GetButtonDown("Shoot") && isDashing == false)
@@ -157,6 +168,9 @@ public class movementplayer : MonoBehaviour
             Debug.Log("shooting");
             isStabbing = false;
             Shoot();
+
+            //plays according audio cue
+            audioManager.Play("playerShoot");
         }
         //Reset animation trigger
         else {
@@ -258,6 +272,9 @@ public class movementplayer : MonoBehaviour
         rigidBody.velocity = Vector3.zero;
         rigidBody.angularVelocity = 0f;
         rigidBody.AddForce(Vector2.up * playerJumpPower);
+
+        //plays according audio cue
+        audioManager.Play("playerJump");
     }
 
     void Dash(){
@@ -367,6 +384,9 @@ public class movementplayer : MonoBehaviour
             rigidBody.angularVelocity = 0f;
             rigidBody.AddForce(Vector2.up * 500);
             //rigidBody.velocity = new Vector2(direction, 0) * playerDashPower;
+
+            //plays according audio cue
+            audioManager.Play("playerHurt");
         }
 
         //If player health is above 0, do nothing else
