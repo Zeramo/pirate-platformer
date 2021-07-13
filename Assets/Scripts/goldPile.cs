@@ -28,7 +28,7 @@ public class goldPile : MonoBehaviour
 
 
             //plays according audio cue
-            audioManager.Play("goldPickUp");
+            //audioManager.Play("goldPickUp");
 
             GameManager.IncreaseScore(goldValue);
 
