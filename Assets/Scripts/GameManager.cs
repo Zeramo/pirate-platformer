@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -20,6 +21,8 @@ public class GameManager : MonoBehaviour
 
     int numEnemies;
     public bool allowExit;
+    public bool isFaing = false;
+    public bool trackLives = false;
 
     int sceneIndex;
     Color loadToColor = Color.black;
@@ -33,11 +36,12 @@ public class GameManager : MonoBehaviour
         }
 
         current = this;
-        current.sceneIndex = 1;
+        current.sceneIndex = 0;
         current.score = 0;
         current.highScore = 0;
         numEnemies = 0;
-
+        goldCollected = 0;
+        
         allowExit = false;
 
         DontDestroyOnLoad(gameObject);
@@ -50,6 +54,7 @@ public class GameManager : MonoBehaviour
             return;
 
     }
+
 
     public static bool IsGameOver()
     {
@@ -108,7 +113,7 @@ public class GameManager : MonoBehaviour
         if (current == null)
             return;
 
-        Initiate.Fade("Level" + (current.sceneIndex + 1), current.loadToColor, 1f);
+        Initiate.Fade("Scene" + (current.sceneIndex + 1), current.loadToColor, 1f);
         current.sceneIndex++;
     }
 
@@ -145,4 +150,29 @@ public class GameManager : MonoBehaviour
         Initiate.Fade("Level" + current.sceneIndex, current.loadToColor, .5f);
         Invoke("PlayerRespawned", 2f);
     }
+
+    public static void NextScene()
+    {
+        Initiate.Fade("Scene" + (current.sceneIndex + 1), current.loadToColor, 1f);
+        current.sceneIndex++;
+        Debug.Log("Sceneindex: " +  current.sceneIndex);
+        
+    }
+    public void Quit()
+    {
+        //Application.Quit();
+    }
+
+    public static void ToScene(int i)
+    {
+        Initiate.Fade("Scene" + i, current.loadToColor, 1f);
+        current.sceneIndex = i;
+    }
+
+    public static void resetCounters(){
+        current.score = 0;
+        current.goldCollected = 1;
+    }
+
+
 }
