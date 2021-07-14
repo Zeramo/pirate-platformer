@@ -5,10 +5,11 @@ using UnityEngine;
 public class EnemyHealth : MonoBehaviour
 {
     public int enemyHealth = 1;
+    public float invincibilityDuration = .25f;
     public int goldValue = 2;
     public GameObject goldPile;
-    private bool enemyAlive = true;
-    public bool hasBeenDamaged = false;
+
+    public bool invincible = false;
 
     BoxCollider2D[] subBoxColliders;
     Rigidbody2D rigidBody;
@@ -23,18 +24,17 @@ public class EnemyHealth : MonoBehaviour
 
     public void EnemyTakeDamage(int damage)
     {
-
-        if (!hasBeenDamaged) {
+        if (!invincible) {
 
             enemyHealth -= damage;
-            hasBeenDamaged = true;
+            invincible = true;
+            Invoke("RemoveInvincibility", invincibilityDuration);
 
             //If enemy health is above 0, do nothing
-            if (enemyHealth > 0 || !enemyAlive)
+            if (enemyHealth > 0)
                 return;
 
             //Destroy game object after 0.5 seconds, disable trigger colliders and allow enemy to fall over
-            enemyAlive = false;
             Invoke(nameof(DestroyEnemy), .5f);
             GameManager.RemoveEnemy();
 
@@ -43,8 +43,12 @@ public class EnemyHealth : MonoBehaviour
                 if (collider.isTrigger)
                     collider.enabled = false;
             }
-            rigidBody.freezeRotation = false;
         }
+    }
+
+    public void RemoveInvincibility()
+    {
+        invincible = false;
     }
 
     void DestroyEnemy()
@@ -61,10 +65,10 @@ public class EnemyHealth : MonoBehaviour
     }
 
     public bool getHasBeenDamaged() {
-        return hasBeenDamaged;
+        return invincible;
     }
 
     public void setHasBeenDamaged(bool hasBeenDamaged) {
-        this.hasBeenDamaged = hasBeenDamaged;
+        this.invincible = hasBeenDamaged;
     }
 }

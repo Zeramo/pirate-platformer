@@ -24,7 +24,7 @@ public class movementplayer : MonoBehaviour
     public int shotDamage = 2;
     public float maxShootingDistance = 25f;
     public float startInvincibilityTime;
-    private float invincibilityTime;
+    private bool invincible;
     public int gold;
 
     private float moveX;
@@ -73,7 +73,7 @@ public class movementplayer : MonoBehaviour
         dashTime = startDashTime;
 
         //startInvincibilityTime holds total invincibilityTime, called when the player gets damaged
-        invincibilityTime = startInvincibilityTime;
+        invincible = false;
 
         //At the start, assume player is grounded and has no double jump 
         isGrounded = true;
@@ -153,8 +153,9 @@ public class movementplayer : MonoBehaviour
     }
 
     void CheckShootOrMelee(){
-        //When player starts a melee attack and is not dashing, start stabbing animation
-        if(Input.GetButtonDown("Melee") && isDashing == false)
+        //When player starts a melee attack and is not dashing or stabbing, start stabbing animation
+        if(Input.GetButtonDown("Melee") && isDashing == false &&
+            !animator.GetCurrentAnimatorStateInfo(0).IsName("pirate_stab"))
         {
             Debug.Log("Melee");
             isStabbing = true;
@@ -365,20 +366,15 @@ public class movementplayer : MonoBehaviour
 
     public void PlayerTakeDamage(int damage)
     {
-
-        if (invincibilityTime <= 0) {
-            //Reset invincibilityTime
-            invincibilityTime = startInvincibilityTime;
-            hasBeenDamaged = false;
-        }           
-        else
+        if(!invincible)
         {
             //playerHealth -= damage;
             //test: if the player runs out of gold, they die
             gold -= damage;
             hasBeenDamaged = true;
-            
-            invincibilityTime -= Time.deltaTime;
+
+            invincible = true;
+            Invoke("RemoveInvincibility", startInvincibilityTime);
 
             rigidBody.velocity = Vector3.zero;
             rigidBody.angularVelocity = 0f;
@@ -398,6 +394,11 @@ public class movementplayer : MonoBehaviour
         gameObject.SetActive(false);
         DestroyPlayer();
         GameManager.PlayerDied();
+    }
+
+    public void RemoveInvincibility()
+    {
+        invincible = false;
     }
 
     public void incrementGold (int amount)
