@@ -4,17 +4,13 @@ using UnityEngine;
 
 public class Scene3Sup : MonoBehaviour
 {
-    bool fading = false;
-
     void Update(){
 
-        if(Input.GetButtonDown("Jump")&& !fading){
+        if(Input.GetKeyDown(KeyCode.Space)){
             GameManager.ToScene(1);
-            fading = true;
         }
-        else if(Input.GetButtonDown("Melee") && !fading){
+        else if(Input.GetKeyDown(KeyCode.Q)){
             GameManager.ToScene(0);
-            fading = true;
         }
     }
 

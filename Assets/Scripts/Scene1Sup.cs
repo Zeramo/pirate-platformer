@@ -10,9 +10,9 @@ public class Scene1Sup : MonoBehaviour
     }
 
     void Update(){
-        if(Input.GetButtonDown("Jump")){
+        if(Input.GetKeyDown(KeyCode.Space)){
             GameManager.NextScene();
-        }else if(Input.GetButtonDown("Melee"))
+        }else if(Input.GetKeyDown(KeyCode.Q))
         {
             GameManager.NextScene();
         }

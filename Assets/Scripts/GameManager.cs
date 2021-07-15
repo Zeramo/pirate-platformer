@@ -173,15 +173,13 @@ public class GameManager : MonoBehaviour
 
     public void Quit()
     {
-        //Application.Quit();
+        Application.Quit();
     }
 
     public static void ToScene(int i)
-    {
+    {            
         Initiate.Fade("Scene" + i, current.loadToColor, 1f);
-
-        if (!current.doneFading)
-            current.sceneIndex = i;
+        current.sceneIndex = i;
 
         current.doneFading = false;
     }
