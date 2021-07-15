@@ -21,11 +21,12 @@ public class GameManager : MonoBehaviour
 
     int numEnemies;
     public bool allowExit;
-    public bool isFaing = false;
+    bool doneFading;
     public bool trackLives = false;
 
     int sceneIndex;
     Color loadToColor = Color.black;
+
     // Start is called before the first frame update
     private void Awake()
     {
@@ -39,6 +40,7 @@ public class GameManager : MonoBehaviour
         current.sceneIndex = 0;
         current.score = 0;
         current.highScore = 0;
+        current.doneFading = true;
         numEnemies = 0;
         goldCollected = 0;
         
@@ -54,7 +56,6 @@ public class GameManager : MonoBehaviour
             return;
 
     }
-
 
     public static bool IsGameOver()
     {
@@ -145,19 +146,31 @@ public class GameManager : MonoBehaviour
         return current.highScore;
     }
 
+    public static void EnableNextScene()
+    {
+        current.doneFading = true;
+    }
+
     void RestartScene()
     {
         Initiate.Fade("Level" + current.sceneIndex, current.loadToColor, .5f);
+        current.doneFading = false;
         Invoke("PlayerRespawned", 2f);
     }
 
     public static void NextScene()
     {
+        if (!current.doneFading)
+            return;
+
         Initiate.Fade("Scene" + (current.sceneIndex + 1), current.loadToColor, 1f);
+
         current.sceneIndex++;
-        Debug.Log("Sceneindex: " +  current.sceneIndex);
-        
+        current.doneFading = false;
+
+        Debug.Log("Sceneindex: " +  current.sceneIndex);      
     }
+
     public void Quit()
     {
         //Application.Quit();
@@ -166,6 +179,16 @@ public class GameManager : MonoBehaviour
     public static void ToScene(int i)
     {
         Initiate.Fade("Scene" + i, current.loadToColor, 1f);
+
+        if (!current.doneFading)
+            current.sceneIndex = i;
+
+        current.doneFading = false;
+    }
+
+    public static void HardCutToScene(int i)
+    {
+        SceneManager.LoadScene(i);
         current.sceneIndex = i;
     }
 

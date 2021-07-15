@@ -4,23 +4,17 @@ using UnityEngine;
 
 public class Scene1Sup : MonoBehaviour
 {
-    
-    bool fading = false;
-
-
     void Start(){
         GameManager.resetCounters();
 
     }
 
     void Update(){
-        if(Input.GetButtonDown("Jump") && !fading){
+        if(Input.GetButtonDown("Jump")){
             GameManager.NextScene();
-            fading = true;
-        }else if(Input.GetButtonDown("Melee")&& !fading)
+        }else if(Input.GetButtonDown("Melee"))
         {
             GameManager.NextScene();
-            fading = true;
         }
     }
 }
