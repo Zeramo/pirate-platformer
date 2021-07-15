@@ -244,7 +244,6 @@ MonoBehaviour:
   sightRange: 15
   attackRange: 5
   enemyDamage: 1
-  maxRecoveryTime: 0.5
   timeBetweenAttacks: 3
   audioManager: {fileID: 0}
 --- !u!114 &5596721745555130271
@@ -260,9 +259,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyHealth: 3
+  invincibilityDuration: 0.3
   goldValue: 2
   goldPile: {fileID: 2422473833134265640, guid: 590d5c09d0430af45b3371a2ff693dae, type: 3}
-  hasBeenDamaged: 0
+  invincible: 0
 --- !u!95 &7317925377669785780
 Animator:
   serializedVersion: 3

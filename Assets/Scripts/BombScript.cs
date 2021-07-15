@@ -8,7 +8,6 @@ public class BombScript : MonoBehaviour
     public Animator animator;
 
     public float explosionTime = .5f;
-    private float explosionTimer = .5f;
     private bool hasCollided = false;
     private bool playerHasBeenDamaged = false;
 
@@ -19,23 +18,28 @@ public class BombScript : MonoBehaviour
     void Start()
     {
         collisionParamID = Animator.StringToHash("hasCollided");
-        explosionTimer = explosionTime;
     }
 
-    void Update()
+    /*void Update()
     {
-        // destroys actor after AOE timer
-        if (explosionTimer <= 0) Destroy(gameObject);
+        if (hasCollided && !animator.GetCurrentAnimatorStateInfo(0).IsName("bomb_explode"))
+            DestroyBomb();
+    }*/
 
-        // destroy timer
-        if (hasCollided) explosionTimer -= Time.deltaTime;
+    private void DestroyBomb()
+    {
+        Destroy(gameObject);
     }
 
     private void OnCollisionEnter2D(Collision2D col)
     {
-        Debug.Log("bomb has collided");
+        if (!hasCollided) 
+        {
+            Debug.Log("bomb has collided");
+            animator.SetBool(collisionParamID, true);
+            Invoke("DestroyBomb", explosionTime);
+        }
         hasCollided = true;
-        animator.SetBool(collisionParamID, hasCollided);
     }
 
     private void OnTriggerEnter2D(Collider2D col)

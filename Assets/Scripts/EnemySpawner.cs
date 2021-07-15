@@ -5,9 +5,12 @@ using UnityEngine;
 public class EnemySpawner : MonoBehaviour
 {
     public GameObject swordFish;
-    public float minXPosition = -20f;
+
+    /*public float minXPosition = -20f;
     public float maxXPosition = 20f;
-    public float yPosition = 2f;
+    public float yPosition = 2f;*/
+
+    public Vector2[] swordfishSpawnPositions;
     public float spawnTime = 5f;
     private float spawnTimer;
 
@@ -26,7 +29,7 @@ public class EnemySpawner : MonoBehaviour
 
     void spawnEnemy(){
         GameObject swordFishInstance = Instantiate(swordFish);
-        float spawnXPosition = Random.Range(minXPosition, maxXPosition);
-        swordFishInstance.transform.position = new Vector2(spawnXPosition, yPosition); 
+        int nextSpawnPosition = (int) Mathf.Round(Random.Range(0, swordfishSpawnPositions.Length));
+        swordFishInstance.transform.position = swordfishSpawnPositions[nextSpawnPosition];
     }
 }

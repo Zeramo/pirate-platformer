@@ -61,14 +61,14 @@ public class EnemyHealth : MonoBehaviour
     {
         GameObject goldPileInstance = Instantiate(goldPile);
         goldPileInstance.transform.position = gameObject.transform.position + Vector3.up;
-        goldPileInstance.GetComponent<goldPile>().setGoldValue(goldValue);
+        goldPileInstance.GetComponent<goldPileScript>().setGoldValue(goldValue);
     }
 
-    public bool getHasBeenDamaged() {
+    public bool getInvincible() {
         return invincible;
     }
 
-    public void setHasBeenDamaged(bool hasBeenDamaged) {
-        this.invincible = hasBeenDamaged;
+    public void setInvincible(bool invincible) {
+        this.invincible = invincible;
     }
 }

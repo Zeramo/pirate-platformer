@@ -22,8 +22,7 @@ public class SwordfishBehavior : MonoBehaviour
     float groundRCLength = .5f;                //Length of the Raycast directed to the ground
     EnemyHealth health;
     int hp;
-    public float maxRecoveryTime = .5f;
-    private float recoveryTime;
+    private bool invincible;
 
     [Header("Attack Properties")]
     public float timeBetweenAttacks = 3f;
@@ -71,8 +70,6 @@ public class SwordfishBehavior : MonoBehaviour
         health = GetComponent<EnemyHealth>();
         hp = health.enemyHealth;
 
-        recoveryTime = maxRecoveryTime;
-
         GameManager.RegisterEnemy();
 
         if (audioManager == null) audioManager = FindObjectOfType<AudioManager>();
@@ -86,7 +83,7 @@ public class SwordfishBehavior : MonoBehaviour
             return;
         }
             
-        updateDamage();
+        updateStun();
         CheckSurroundings();
         Move();
         AnimateSwordfish();
@@ -122,16 +119,16 @@ public class SwordfishBehavior : MonoBehaviour
             //If player is not in sight, Idle. Can be replaced by a Patrolling function
             if (!playerInSight) Idle();
             //If player is in sight, in attack range, the enemy has not attacked, and there is no obstacle, Attack
-            if (playerInSight && playerInRange && !hasAttacked && !obstacle) {
+            if (playerInSight && playerInRange && !hasAttacked && !obstacle && !invincible) {
                 Attack();
 
                 //plays according audio cue
                 audioManager.Play("Swordfish");
             }
             //If player is in sight, but out of range and there is no obstacle, Chase
-            if (playerInSight && !playerInRange && !obstacle) Chase();
+            if (playerInSight && !playerInRange && !obstacle && !invincible) Chase();
             //If there is an obstacle, and the enemy can jump, Jump
-            if (obstacle && jumpAvailable) Jump();
+            if (obstacle && jumpAvailable && !invincible) Jump();
         }
         else Idle();
         
@@ -244,43 +241,27 @@ public class SwordfishBehavior : MonoBehaviour
 
     void AnimateSwordfish()
     {
-        anim.SetBool(jumpParamID, !jumpAvailable);
-        anim.SetFloat(speedXParamID, Mathf.Abs(rigidBody.velocity.x));
-        anim.SetBool(damagedParamID, health.getHasBeenDamaged());
+        if (invincible) {
+            anim.SetBool(jumpParamID, false);
+            anim.SetFloat(speedXParamID, 0);
+        } else {
+            anim.SetBool(jumpParamID, !jumpAvailable);
+            anim.SetFloat(speedXParamID, Mathf.Abs(rigidBody.velocity.x));
+        }
+        anim.SetBool(damagedParamID, invincible);
     }
 
-    /*bool checkForDamage() {
-        bool hasBeenDamaged = health.getHasBeenDamaged();
-        if (hasBeenDamaged) {
+    void updateStun() {
+
+        if (!invincible && health.getInvincible()) {
             rigidBody.velocity = Vector2.zero;
             rigidBody.angularVelocity = 0f;
-
-            rigidBody.AddForce(new Vector2(direction * -2, enemyJumpForce/2), ForceMode2D.Impulse);
-        }
-        return hasBeenDamaged;
-    }*/
-
-    void updateDamage() {
-
-        if (recoveryTime <= 0) {
-            health.setHasBeenDamaged(false);
-            recoveryTime = maxRecoveryTime;
-        }
-
-        else if (health.getHasBeenDamaged()) {
-
-            if (recoveryTime == maxRecoveryTime) {
-            rigidBody.velocity = Vector2.zero;
-            rigidBody.angularVelocity = 0f;
-
             rigidBody.AddForce(new Vector2((player.position.x - rigidBody.position.x) * -7.5f, enemyJumpForce*.75f), ForceMode2D.Impulse);
 
             //plays according audio cue
             audioManager.Play("SwordfishHurt");
-            }
-            
-            recoveryTime -= Time.deltaTime;
         }
+        invincible = health.getInvincible();
     }
 
     RaycastHit2D MyRaycast(Vector2 offset, Vector2 direction, float length, LayerMask mask)
