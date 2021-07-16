@@ -119,7 +119,7 @@ public class OctopusBehaviour : MonoBehaviour
     {
         //determine vector via x distance between player and enemy
         float deltaX = (player.position.x - rigidBody.position.x) / 2;
-        float deltaY = Mathf.Sqrt(Mathf.Pow((bombTravelLength * .75f), 2) - Mathf.Pow(deltaX, 2)) + (player.position.y - rigidBody.position.y) / 2;;
+        float deltaY = Mathf.Sqrt(Mathf.Abs(Mathf.Pow((bombTravelLength * .75f), 2) - Mathf.Pow(deltaX, 2))) + (player.position.y - rigidBody.position.y) / 2;
         Vector2 bombVector = new Vector2(deltaX, deltaY);
 
         //spawn bomb and apply impulse

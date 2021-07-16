@@ -425,11 +425,6 @@ public class movementplayer : MonoBehaviour
         gold -= amount;
     }
 
-    void DestroyPlayer()
-    {
-        Destroy(gameObject);
-    }
-
     //This function is called automatically by Unity's physics engine/detector/whatever
     void OnCollisionEnter2D(Collision2D col){
         //Debug.Log("Player has collided with " + col.collider);
