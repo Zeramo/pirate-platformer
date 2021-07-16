@@ -10,8 +10,8 @@ public class BombScript : MonoBehaviour
     public Animator animator;
 
     public float explosionTime = .5f;
-    public float autoTriggerTime = .5f;
-    public float initialLifeTime = .01f;
+    public float autoTriggerTime = 3f;
+    public float initialLifeTime = .1f;
     private bool collisionTestable = false;
     private bool hasCollided = false;
     private bool playerHasBeenDamaged = false;
@@ -53,8 +53,8 @@ public class BombScript : MonoBehaviour
         {
             Debug.Log("bomb has collided");
             TriggerExplosion();
+            hasCollided = true;
         }
-        hasCollided = true;
     }
 
     //checks player damage once during explosion

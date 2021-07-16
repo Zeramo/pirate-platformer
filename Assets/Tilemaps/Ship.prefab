@@ -373,7 +373,7 @@ GameObject:
   - component: {fileID: 3622207231366974794}
   - component: {fileID: 1371416955881309501}
   - component: {fileID: 1819771314406669985}
-  m_Layer: 11
+  m_Layer: 14
   m_Name: ShipSailPlatforms
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -670,7 +670,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1502545923408142, guid: 5921aacb7b0604d4188795a90b923cbb, type: 3}
       propertyPath: m_Layer
-      value: 11
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4492121103012140, guid: 5921aacb7b0604d4188795a90b923cbb, type: 3}
       propertyPath: m_RootOrder
