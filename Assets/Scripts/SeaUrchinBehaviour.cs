@@ -16,9 +16,10 @@ public class SeaUrchinBehaviour : MonoBehaviour
     public float sightRange;                    //If the player is in sight range, the enemy will start moving
     bool playerInSight;
     public int enemyDamage = 1;
-    float groundRCLength = .5f;                //Length of the Raycast directed to the ground
+    public float groundRCLength = .5f;                //Length of the Raycast directed to the ground
     EnemyHealth health;
     int hp;
+    private bool invincible;
 
     [Header("Attack Properties")]
     private Transform player;
@@ -28,14 +29,16 @@ public class SeaUrchinBehaviour : MonoBehaviour
 
     Rigidbody2D rigidBody;
     float spawnXScale;
-    int direction = -1;
+    //flip if inverted or address in object sprite properties
+    int direction = 1;
 
     RaycastHit2D obstacle;
 
     Animator anim;
 
-    int speedXParamID;
-    int jumpParamID;
+    int damagedParamID;
+
+    public AudioManager audioManager;
 
     void Start()
     {
@@ -47,17 +50,27 @@ public class SeaUrchinBehaviour : MonoBehaviour
         playerLayer = LayerMask.GetMask("Player");
 
         rigidBody = GetComponent<Rigidbody2D>();
-        spawnXScale = -transform.localScale.x;
+        //flip if inverted or address in object sprite properties
+        spawnXScale = transform.localScale.x;
+
+        anim = GetComponent<Animator>();
+        damagedParamID = Animator.StringToHash("hasBeenDamaged");
 
         health = GetComponent<EnemyHealth>();
         hp = health.enemyHealth;
+
+        GameManager.RegisterEnemy();
+
+        if (audioManager == null) audioManager = FindObjectOfType<AudioManager>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        updateStun();
         CheckSurroundings();
         Move();
+        AnimateSeaUrchin();
     }
 
     void CheckSurroundings()
@@ -69,13 +82,13 @@ public class SeaUrchinBehaviour : MonoBehaviour
         moveDir = new Vector2(player.position.x - this.transform.position.x, player.position.y - this.transform.position.y);
 
         //Draw raycast to see if the enemy is considered to be on the ground
-        RaycastHit2D onGround = MyRaycast(new Vector2(0f, -boxCollider.size.y/2 + groundRCLength/2), Vector2.down, groundRCLength, groundLayer);
+        RaycastHit2D onGround = MyRaycast(new Vector2(0f, /*-boxCollider.size.y/2 +*/ groundRCLength/2), Vector2.down, groundRCLength, groundLayer);
 
         //If enemy is on the ground, it can jump
         jumpAvailable = onGround ? true : false;
 
         //Draw raycast to see if there is an obstacle the enemy can jump over
-        obstacle = MyRaycast(new Vector2(boxCollider.size.x / 2 * direction, .0f), new Vector2(direction, 0f), 1f, groundLayer);
+        obstacle = MyRaycast(new Vector2(/*boxCollider.size.x / 2 * direction*/0, .0f), new Vector2(direction, 0f), 1f, groundLayer);
     }
 
     void Move()
@@ -86,11 +99,11 @@ public class SeaUrchinBehaviour : MonoBehaviour
         if (hp > 0)
         {
             //If player is not in sight, Idle. Can be replaced by a Patrolling function
-            if (!playerInSight) Idle();
+            if (!playerInSight || invincible) Idle();
             //If player is in sight, but out of range and there is no obstacle, Chase
-            if (playerInSight && !obstacle) Chase();
+            if (playerInSight && !obstacle && !invincible) Chase();
             //If there is an obstacle, and the enemy can jump, Jump
-            if (obstacle && jumpAvailable) Jump();
+            if (obstacle && jumpAvailable && !invincible) Jump();
         }
         else Idle();
         
@@ -115,6 +128,9 @@ public class SeaUrchinBehaviour : MonoBehaviour
         //ForceMode Impulse to avoid catapult-like jumps that exceed enemyJumpForce.
         //Jump height is calculated differently here, so enemyJumpForce is a lot lower than that of the player.
         rigidBody.AddForce(Vector2.up * enemyJumpForce, ForceMode2D.Impulse);
+
+        //plays according audio cue
+        audioManager.Play("Swordfish");
     }
 
     void Idle()
@@ -124,20 +140,15 @@ public class SeaUrchinBehaviour : MonoBehaviour
         rigidBody.angularVelocity = 0f;
     }
 
-    void OnCollisionEnter2D(Collision2D col)
+    void OnTriggerEnter2D(Collider2D col)
     {
         //Debug.Log("Enemy has collided with " + col.collider);
-        if (col.gameObject.layer == LayerMask.NameToLayer("Player"))
+        if (col.gameObject.layer == LayerMask.NameToLayer("Player") && hp > 0)
         {
-            Debug.Log("Enemy has collided with Player, Player damaged");
+            Debug.Log("Enemy trigger has collided with Player, Player damaged");
             col.gameObject.GetComponent<movementplayer>().PlayerTakeDamage(enemyDamage);
 
         }
-        if (col.gameObject.layer == LayerMask.NameToLayer("Platforms"))
-        {
-            //Debug.Log("Enemy has collided with platforms");
-        }
-
     }
 
     void FlipDirection()
@@ -150,6 +161,20 @@ public class SeaUrchinBehaviour : MonoBehaviour
         scale.x = spawnXScale * direction;
         //Apply scale
         transform.localScale = scale;
+    }
+
+    void AnimateSeaUrchin()
+    {
+        anim.SetBool(damagedParamID, invincible);
+    }
+
+    void updateStun() {
+
+        if (!invincible && health.getInvincible()) {
+            //plays according audio cue
+            audioManager.Play("SwordfishHurt");
+        }
+        invincible = health.getInvincible();
     }
 
     RaycastHit2D MyRaycast(Vector2 offset, Vector2 direction, float length, LayerMask mask)

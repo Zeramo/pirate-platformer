@@ -219,7 +219,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8014842182565784070, guid: 6de799f997d4c4c47abed09b8fcc77f3, type: 3}
       propertyPath: m_RootOrder
-      value: 13
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 8014842182565784070, guid: 6de799f997d4c4c47abed09b8fcc77f3, type: 3}
       propertyPath: m_LocalPosition.x
@@ -8258,7 +8258,7 @@ Transform:
   m_Children:
   - {fileID: 423148256}
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &423148255
 GameObject:
@@ -8408,7 +8408,7 @@ Camera:
   m_FOVAxisMode: 0
   m_SensorSize: {x: 36, y: 24}
   m_LensShift: {x: 0, y: 0}
-  m_FocalLength: 50
+  m_FocalLength: 20.78461
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
@@ -8443,11 +8443,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 818639872}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -8.98, y: 1.375, z: -14}
+  m_LocalPosition: {x: -0.3028775, y: 15.479193, z: -14}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &818639876
 MonoBehaviour:
@@ -8996,7 +8996,7 @@ Transform:
   - {fileID: 165801390}
   - {fileID: 2100550907}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1600819927
 MonoBehaviour:
@@ -9388,7 +9388,7 @@ GameObject:
   - component: {fileID: 1753013004}
   - component: {fileID: 1753013003}
   m_Layer: 0
-  m_Name: FishSpawner
+  m_Name: EnemySpawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9406,7 +9406,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d13452c67c593004f8cb71e993f78bd7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  swordFish: {fileID: 7317925377669785778, guid: 0faa27b47b95dbd4ca340febd2ffb0ca, type: 3}
+  swordFish: {fileID: 6382562555550237641, guid: d783bb3dbe0b8df49bee55ee57f38507, type: 3}
   swordfishSpawnPositions:
   - {x: 2, y: 5}
   spawnTime: 5
@@ -9422,7 +9422,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1763981509
 PrefabInstance:
@@ -9433,7 +9433,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 7317925377669785777, guid: 0faa27b47b95dbd4ca340febd2ffb0ca, type: 3}
       propertyPath: m_RootOrder
-      value: 14
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 7317925377669785777, guid: 0faa27b47b95dbd4ca340febd2ffb0ca, type: 3}
       propertyPath: m_LocalPosition.x
@@ -9665,7 +9665,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2030650638}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -8.98, y: 1.375, z: -14}
+  m_LocalPosition: {x: -0.87, y: 16.63, z: -14}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1594373059}
@@ -14012,7 +14012,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6758931697117033247, guid: 9ed2868e16e4fa245b94a22ac7034ec1, type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 6758931697117033247, guid: 9ed2868e16e4fa245b94a22ac7034ec1, type: 3}
       propertyPath: m_LocalPosition.x
@@ -14076,6 +14076,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 403851333}
     - target: {fileID: 4985083534955574821, guid: 4f0b2926fdfbf7b409231616b3de1c6f, type: 3}
+      propertyPath: dashCooldown
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4985083534955574821, guid: 4f0b2926fdfbf7b409231616b3de1c6f, type: 3}
       propertyPath: playerHealth
       value: 2
       objectReference: {fileID: 0}
@@ -14085,15 +14089,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4985083534955575001, guid: 4f0b2926fdfbf7b409231616b3de1c6f, type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4985083534955575001, guid: 4f0b2926fdfbf7b409231616b3de1c6f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -8.98
+      value: -0.87
       objectReference: {fileID: 0}
     - target: {fileID: 4985083534955575001, guid: 4f0b2926fdfbf7b409231616b3de1c6f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.375
+      value: 16.63
       objectReference: {fileID: 0}
     - target: {fileID: 4985083534955575001, guid: 4f0b2926fdfbf7b409231616b3de1c6f, type: 3}
       propertyPath: m_LocalPosition.z

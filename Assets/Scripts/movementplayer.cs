@@ -19,12 +19,14 @@ public class movementplayer : MonoBehaviour
     public float playerDashPower = 15f;
     private float dashTime;
     public float startDashTime;
+    public float dashCooldown = 3f;
+    private bool dashEnabled = true;
     public int playerHealth = 1;
     public int meleeDamage = 1;
     public int shotDamage = 2;
     public float maxShootingDistance = 25f;
     public float startInvincibilityTime;
-    private bool invincible;
+    private bool invincible = false;
     public int gold;
 
     private float moveX;
@@ -72,9 +74,6 @@ public class movementplayer : MonoBehaviour
         //StartDashTime holds total dash time, dashTime how much time there is left in the dash
         dashTime = startDashTime;
 
-        //startInvincibilityTime holds total invincibilityTime, called when the player gets damaged
-        invincible = false;
-
         //At the start, assume player is grounded and has no double jump 
         isGrounded = true;
         doubleJump = false;
@@ -119,20 +118,22 @@ public class movementplayer : MonoBehaviour
         }
         //If player starts a dash, and player is on the ground, double jumping becomes
         //unavailable. Start dashing animation and dash movement
-        if (Input.GetButtonDown("Dash") && isGrounded == true)
+        if (Input.GetButtonDown("Dash") && isGrounded == true && dashEnabled)
         {
             doubleJump = false;
             animationDashing = true;
+            dashEnabled = false;
             Dash();
 
             //plays according audio cue
             audioManager.Play("playerDash");
         }
         //If player is in the air and wants to dash, disable double jump, start dashing animation and movement
-        else if (Input.GetButtonDown("Dash") && doubleJump)
+        else if (Input.GetButtonDown("Dash") && doubleJump && dashEnabled)
         {
             doubleJump = false;
             animationDashing = true;
+            dashEnabled = false;
             Dash();
 
             //plays according audio cue
@@ -279,6 +280,7 @@ public class movementplayer : MonoBehaviour
     }
 
     void Dash(){
+
         //StartDashTime (i.e. dash duration) has been exceeded.
         if (dashTime <= 0)
         {
@@ -288,8 +290,12 @@ public class movementplayer : MonoBehaviour
             isDashing = false;
             //Ensure dash velocity does not carry over to normal movement speed
             rigidBody.velocity = Vector2.zero;
+            //end Dash invincibility
+            invincible = false;
+            //start Dash cooldown timer
+            Invoke("enableDash", dashCooldown);
             return;
-        }           
+        }         
         else
         {
             //Player is considered to be dashing
@@ -298,7 +304,13 @@ public class movementplayer : MonoBehaviour
             dashTime -= Time.deltaTime;
             //Set velocity to dash power
             rigidBody.velocity = new Vector2(direction, 0) * playerDashPower;
+            //set invincibility while dash
+            invincible = true;
         }
+    }
+
+    void enableDash(){
+        dashEnabled = true;
     }
 
     void Shoot()
@@ -382,6 +394,9 @@ public class movementplayer : MonoBehaviour
             //rigidBody.velocity = new Vector2(direction, 0) * playerDashPower;
 
             GameManager.DecreaseScore(damage);
+
+            //Shake the camera
+            CameraShaker.Instance.ShakeCamera(.5f, .05f);
 
             //plays according audio cue
             audioManager.Play("playerHurt");
