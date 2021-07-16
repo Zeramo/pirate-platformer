@@ -407,7 +407,6 @@ public class movementplayer : MonoBehaviour
             return;
         
         gameObject.SetActive(false);
-        DestroyPlayer();
         GameManager.PlayerDied();
     }
 
