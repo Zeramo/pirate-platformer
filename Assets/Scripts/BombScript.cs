@@ -11,6 +11,8 @@ public class BombScript : MonoBehaviour
 
     public float explosionTime = .5f;
     public float autoTriggerTime = .5f;
+    public float initialLifeTime = .01f;
+    private bool collisionTestable = false;
     private bool hasCollided = false;
     private bool playerHasBeenDamaged = false;
 
@@ -24,6 +26,11 @@ public class BombScript : MonoBehaviour
         playerLayer = LayerMask.GetMask("Player");
         collisionParamID = Animator.StringToHash("hasCollided");
         Invoke("TriggerExplosion", autoTriggerTime);
+        Invoke("enableCollisionTest", initialLifeTime);
+    }
+
+    private void enableCollisionTest() {
+        collisionTestable = true;
     }
 
     //Deletes the bomb
@@ -42,7 +49,7 @@ public class BombScript : MonoBehaviour
     //checks collision to call TriggerExplosion
     private void OnCollisionEnter2D(Collision2D col)
     {
-        if (!hasCollided && col.gameObject.layer == playerLayer)
+        if (!hasCollided && collisionTestable)
         {
             Debug.Log("bomb has collided");
             TriggerExplosion();
