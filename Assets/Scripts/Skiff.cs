@@ -20,7 +20,6 @@ public class Skiff : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        GameManager.RegisterSkiff(this);
         rigidBody = GetComponent<Rigidbody2D>();
 
         rigidBody.freezeRotation = true;
