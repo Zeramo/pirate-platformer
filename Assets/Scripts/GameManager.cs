@@ -155,7 +155,7 @@ public class GameManager : MonoBehaviour
         //REMOVE if there is a set number of enemies per level
         current.numEnemies = 5;
 
-        Initiate.Fade("Level" + current.sceneIndex, current.loadToColor, .5f);
+        Initiate.Fade("Scene" + current.sceneIndex, current.loadToColor, .5f);
         current.doneFading = false;
         Invoke("PlayerRespawned", 2f);
     }

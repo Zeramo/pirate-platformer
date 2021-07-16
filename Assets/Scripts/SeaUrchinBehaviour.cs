@@ -67,6 +67,12 @@ public class SeaUrchinBehaviour : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (GameManager.IsPlayerDead())
+        {
+            Idle();
+            return;
+        }
+
         updateStun();
         CheckSurroundings();
         Move();
