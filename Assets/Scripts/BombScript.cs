@@ -4,10 +4,13 @@ using UnityEngine;
 
 public class BombScript : MonoBehaviour
 {
+    public LayerMask groundLayer, playerLayer;
+
     int collisionParamID;
     public Animator animator;
 
     public float explosionTime = .5f;
+    public float autoTriggerTime = .5f;
     private bool hasCollided = false;
     private bool playerHasBeenDamaged = false;
 
@@ -17,31 +20,37 @@ public class BombScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        groundLayer = LayerMask.GetMask("Platforms");
+        playerLayer = LayerMask.GetMask("Player");
         collisionParamID = Animator.StringToHash("hasCollided");
+        Invoke("TriggerExplosion", autoTriggerTime);
     }
 
-    /*void Update()
-    {
-        if (hasCollided && !animator.GetCurrentAnimatorStateInfo(0).IsName("bomb_explode"))
-            DestroyBomb();
-    }*/
-
+    //Deletes the bomb
     private void DestroyBomb()
     {
         Destroy(gameObject);
     }
 
+    //triggers explosion animation and behaviour
+    private void TriggerExplosion()
+    {
+        animator.SetBool(collisionParamID, true);
+        Invoke("DestroyBomb", explosionTime);
+    }
+
+    //checks collision to call TriggerExplosion
     private void OnCollisionEnter2D(Collision2D col)
     {
-        if (!hasCollided) 
+        if (!hasCollided && col.gameObject.layer == playerLayer)
         {
             Debug.Log("bomb has collided");
-            animator.SetBool(collisionParamID, true);
-            Invoke("DestroyBomb", explosionTime);
+            TriggerExplosion();
         }
         hasCollided = true;
     }
 
+    //checks player damage once during explosion
     private void OnTriggerEnter2D(Collider2D col)
     {
         if (col.gameObject.layer == LayerMask.NameToLayer("Player"))
