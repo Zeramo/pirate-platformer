@@ -117,7 +117,7 @@ public class SwordfishBehavior : MonoBehaviour
         if (hp > 0)
         {
             //If player is not in sight, Idle. Can be replaced by a Patrolling function
-            if (!playerInSight) Idle();
+            if (!playerInSight || invincible) Idle();
             //If player is in sight, in attack range, the enemy has not attacked, and there is no obstacle, Attack
             if (playerInSight && playerInRange && !hasAttacked && !obstacle && !invincible) {
                 Attack();

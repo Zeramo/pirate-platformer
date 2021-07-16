@@ -40,7 +40,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 6382562555010784567}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 6eee4a125e1b6f54bad6e7f33c56b91a, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -72,7 +72,7 @@ GameObject:
   - component: {fileID: 6382562555550237654}
   - component: {fileID: 6382562555550237655}
   - component: {fileID: 2118465907144713619}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: SeaUrchin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -88,7 +88,7 @@ Transform:
   m_GameObject: {fileID: 6382562555550237641}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.75, y: 0.75, z: 0.75}
   m_Children:
   - {fileID: 6382562555010784560}
   m_Father: {fileID: 0}
@@ -136,7 +136,7 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 71f702a0fe4e43942b02ed1120522fb6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
+  m_FlipX: 1
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 2, y: 2}
@@ -176,7 +176,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 0.5
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
@@ -192,13 +192,13 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6382562555550237641}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 6200000, guid: 124d724cffbd7714b9e959172eddc78c, type: 2}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.19}
+  m_Offset: {x: 0.004341483, y: 0.31097245}
   m_SpriteTilingProperty:
     border: {x: 0.375, y: 0, z: 0.375, w: 1.125}
     pivot: {x: 0.5, y: 0.0625}
@@ -209,7 +209,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 0.625}
+  m_Size: {x: 1.2431266, y: 0.8669449}
   m_EdgeRadius: 0
 --- !u!114 &6382562555550237655
 MonoBehaviour:
@@ -229,11 +229,12 @@ MonoBehaviour:
   playerLayer:
     serializedVersion: 2
     m_Bits: 512
-  enemySpeed: 5
-  enemyJumpForce: 15
-  sightRange: 30
-  enemyHealth: 1
+  enemySpeed: 7.5
+  enemyJumpForce: 7.5
+  sightRange: 200
   enemyDamage: 1
+  groundRCLength: 0.5
+  audioManager: {fileID: 0}
 --- !u!114 &2118465907144713619
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -247,3 +248,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyHealth: 1
+  invincibilityDuration: 0.5
+  goldValue: 1
+  goldPile: {fileID: 2422473833134265640, guid: 590d5c09d0430af45b3371a2ff693dae, type: 3}
+  invincible: 0
