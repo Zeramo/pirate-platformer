@@ -65,7 +65,7 @@ public class movementplayer : MonoBehaviour
         boxCollider2d = transform.GetComponent<BoxCollider2D>();
 
         //Get layers
-        platformsLayer = LayerMask.GetMask("Platforms");
+        //platformsLayer = LayerMask.GetMask("Platforms");
         enemyLayer = LayerMask.GetMask("Enemies");
 
         //Get spawn direction, to later determine whether the player needs to be flipped
