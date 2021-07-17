@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 public class GridRotator : MonoBehaviour
 {
     [Header("Properties of sinus function")]
@@ -12,12 +11,14 @@ public class GridRotator : MonoBehaviour
 
     float rotValue = 0f;
     float prevRot = 0f;                             //To store previous rotation
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    
 
+    void OnDrawGizmos()
+    {
+        // Draw a yellow sphere at the transform's position
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawSphere(transform.position, 1);
+    }
     // Update is called once per frame
     void Update()
     {

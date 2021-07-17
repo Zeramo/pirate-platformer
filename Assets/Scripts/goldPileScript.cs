@@ -20,13 +20,15 @@ public class goldPileScript : MonoBehaviour
         if (col.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
             Debug.Log("player has collected gold");
-            col.gameObject.GetComponent<movementplayer>().incrementGold(goldValue);
+            //col.gameObject.GetComponent<movementplayer>().incrementGold(goldValue);
 
 
             //plays according audio cue
             audioManager.Play("goldPickUp");
 
             GameManager.IncreaseScore(goldValue);
+            GameManager.AddGold();
+            
 
             DestroyGold();
         }

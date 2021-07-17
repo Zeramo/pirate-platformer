@@ -11,15 +11,15 @@ TagManager:
   - Void
   - Water
   - UI
-  - 
-  - 
+  - Waterfront
+  - Waterback
   - PostProcessing
   - Player
   - Enemies
   - Platforms
   - Traps
   - Gold
-  - SailPlatforms
+  - 
   - 
   - 
   - 
@@ -55,4 +55,7 @@ TagManager:
     locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Wave
+    uniqueID: 1178083281
     locked: 0

@@ -8,7 +8,8 @@ public class GameManager : MonoBehaviour
 {
     static GameManager current;
 
-    public float deathDuration = 2f;                //Duration before scene transition is started
+    public float deathDuration = 0.1f;                //Duration before scene transition is started
+    public int lastLevelNumber = 4;
 
     Skiff winZoneSkiff;
 
@@ -21,8 +22,12 @@ public class GameManager : MonoBehaviour
 
     int numEnemies;                                 //Number of enemies that have to be killed player can exit
     bool allowExit;                                 //Is the player allowed to exit?
-    bool doneFading;                                //Has the scene faded in and out completely?
-    public bool trackLives = false;
+    bool doneFading;                               //Has the scene faded in and out completely?
+
+    [Range(1, 10)]
+    public int initialGold = 5;
+    public bool debugmode = false;
+    //public bool trackLives = false;
 
     int sceneIndex;                                 //Index of current scene (starting at 0 with the menu)
     Color loadToColor = Color.black;                //Fade color
@@ -44,7 +49,7 @@ public class GameManager : MonoBehaviour
         current.highScore = 0;
         current.doneFading = true;
         current.numEnemies = 5;      //Change to 0 if there is a set number of enemies per level
-        goldCollected = 0;
+        if(debugmode){goldCollected = initialGold;} // enable for level testing
         
         allowExit = false;
 
@@ -92,9 +97,26 @@ public class GameManager : MonoBehaviour
     {
         //current.numDeaths++;
         //UIManager.UpdateDeathUI(current.numDeaths);
+         if(current.debugmode){
+            current.Invoke("RestartScene", current.deathDuration);
+            return;
+         }
+        current.playerDead = true;
+         HardCutToScene(current.lastLevelNumber);
+    }
+        public static void PlayerDrowned()
+    {
+        //current.numDeaths++;
+        //UIManager.UpdateDeathUI(current.numDeaths);
 
         current.playerDead = true;
+        if(current.goldCollected >= 1){
+        current.goldCollected = 1;
         current.Invoke("RestartScene", current.deathDuration);
+        }else{
+            HardCutToScene(current.lastLevelNumber);
+        }
+        
     }
 
     public static bool IsPlayerDead()
@@ -123,8 +145,8 @@ public class GameManager : MonoBehaviour
     public static void IncreaseScore(int score)
     {
         current.score += score;
-        if (current.score > current.highScore)
-            current.highScore = current.score;
+        //if (current.score > current.highScore)
+        //    current.highScore = current.score;
         Debug.Log(current.score);
     }
 
@@ -142,6 +164,13 @@ public class GameManager : MonoBehaviour
     {
         return current.highScore;
     }
+    public static void SetHighScore(int i){
+        current.highScore = i;
+    }
+    public static int GetScore(){
+        return current.score;
+    }
+
 
     public static void EnableNextScene()
     {
@@ -155,9 +184,11 @@ public class GameManager : MonoBehaviour
         //REMOVE if there is a set number of enemies per level
         current.numEnemies = 5;
 
+        if(debugmode){current.goldCollected = initialGold;}
+
         Initiate.Fade("Scene" + current.sceneIndex, current.loadToColor, .5f);
         current.doneFading = false;
-        Invoke("PlayerRespawned", 2f);
+        Invoke("PlayerRespawned", 0.5f);
     }
 
     public static void NextScene()
@@ -207,8 +238,21 @@ public class GameManager : MonoBehaviour
 
     public static void resetCounters(){
         current.score = 0;
-        current.goldCollected = 1;
+        current.goldCollected = current.initialGold;
+        current.playerDead = false;
     }
+    public static int GetGold(){
+        return current.goldCollected;
+    }
+    public static void SetGold(int i){
+        current.goldCollected = i;
+        //Debug.Log("Gold:" + current.goldCollected);
+    }
+    public static void AddGold(){
+        current.goldCollected++;
+        //Debug.Log("Gold:" + current.goldCollected);
+    }
+
 
 
 }

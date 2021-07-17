@@ -27,7 +27,8 @@ public class movementplayer : MonoBehaviour
     public float maxShootingDistance = 25f;
     public float startInvincibilityTime;
     private bool invincible = false;
-    public int gold;
+    private static int localGold;
+    public int lastLevelnumber = 4;
 
     private float moveX;
 
@@ -378,13 +379,47 @@ public class movementplayer : MonoBehaviour
 
     public void PlayerTakeDamage(int damage)
     {
+        if(damage == -1 && !invincible){
+            Debug.Log("Watery death ");
+            GameManager.PlayerDrowned();
+            return;
+        }
         if(!invincible)
         {
             //playerHealth -= damage;
             //test: if the player runs out of gold, they die
-            gold -= damage;
+            localGold = GameManager.GetGold(); // only one instance of player => no multiple acces, maybe Overlay but no valchange here
+            //gold -= damage;
             hasBeenDamaged = true;
+            //*
+            if((localGold - damage) >= 1){ // there is still gold remaining after damage
+                invincible = true;
+                Invoke("RemoveInvincibility", startInvincibilityTime);
 
+                rigidBody.velocity = Vector3.zero;
+                rigidBody.angularVelocity = 0f;
+                rigidBody.AddForce(Vector2.up * 500);
+                //rigidBody.velocity = new Vector2(direction, 0) * playerDashPower;
+
+                GameManager.DecreaseScore(damage);
+                GameManager.SetGold(localGold - damage);
+                //Shake the camera
+                CameraShaker.Instance.ShakeCamera(.5f, .05f);
+
+                //plays according audio cue
+                audioManager.Play("playerHurt");
+                
+            }else{ // Death 
+                invincible = true;
+                //gameObject.SetActive(false);
+                GameManager.SetGold(0);
+                GameManager.PlayerDied();
+                
+                
+            }
+        }
+    } /*
+            
             invincible = true;
             Invoke("RemoveInvincibility", startInvincibilityTime);
 
@@ -403,27 +438,29 @@ public class movementplayer : MonoBehaviour
         }
 
         //If player health is above 0, do nothing else
-        if (/*playerHealth*/ gold > 0)
+        //if (playerHealth gold > 0)
             return;
         
         gameObject.SetActive(false);
         GameManager.PlayerDied();
-    }
+        */
+    //}
 
     public void RemoveInvincibility()
     {
         invincible = false;
     }
-
-    public void incrementGold (int amount)
+    /*
+    public void incrementGold (int amount) // ggf redundant
     {
         gold += amount;
     }
 
-    private void decrementGold (int amount)
+    private void decrementGold (int amount) // ggf redundant
     {
         gold -= amount;
     }
+    */
 
     //This function is called automatically by Unity's physics engine/detector/whatever
     void OnCollisionEnter2D(Collision2D col){
@@ -442,7 +479,7 @@ public class movementplayer : MonoBehaviour
 
     //This function is called automatically by Unity's physics engine/detector/whatever
     //The player's sword is marked as a trigger. When it collides with something, this function is called
-    private void OnTriggerEnter2D(Collider2D col)
+    void OnTriggerEnter2D(Collider2D col)
     {
         if(col.gameObject.layer == LayerMask.NameToLayer("Enemies") && (animator.GetCurrentAnimatorStateInfo(0).IsName("pirate_stab") || animator.GetCurrentAnimatorStateInfo(0).IsName("pirate_dash")))
         {
