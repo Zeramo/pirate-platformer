@@ -94,8 +94,15 @@ public class movementplayer : MonoBehaviour
         if (GameManager.IsGameOver())
             return;
 
-        CheckJumpOrDash();
-        CheckShootOrMelee();
+        //as soon as the shoot anim stops, the player can act again
+        if (isShooting && !animator.GetCurrentAnimatorStateInfo(0).IsName("pirate_shoot")) {
+            isShooting = false;
+            //invincible = false;
+        }
+        if (!isShooting) {
+            CheckJumpOrDash();
+            CheckShootOrMelee();
+        }
         AnimatePlayer();         
     }
 
@@ -110,14 +117,12 @@ public class movementplayer : MonoBehaviour
             
 
         GroundedCheck();
-        MovementXAxis();
+        if (!isShooting) {
+            MovementXAxis();
+        }
     }
 
     void CheckJumpOrDash(){
-        //as soon as the shoot anim stops, the player can act again
-        if (isShooting && !animator.GetCurrentAnimatorStateInfo(0).IsName("pirateShoot")) {
-            isShooting = false;
-        }
 
         //If player is currently dashing, disable animation trigger and continue the dash
         if (isDashing)
@@ -127,7 +132,7 @@ public class movementplayer : MonoBehaviour
         }
         //If player starts a dash, and player is on the ground, double jumping becomes
         //unavailable. Start dashing animation and dash movement
-        if (Input.GetButtonDown("Dash") && isGrounded == true && dashEnabled && !isShooting)
+        if (Input.GetButtonDown("Dash") && isGrounded == true && dashEnabled)
         {
             doubleJump = false;
             animationDashing = true;
@@ -138,7 +143,7 @@ public class movementplayer : MonoBehaviour
             audioManager.Play("playerDash");
         }
         //If player is in the air and wants to dash, disable double jump, start dashing animation and movement
-        else if (Input.GetButtonDown("Dash") && doubleJump && dashEnabled && !isShooting)
+        else if (Input.GetButtonDown("Dash") && doubleJump && dashEnabled)
         {
             doubleJump = false;
             animationDashing = true;
@@ -367,6 +372,7 @@ public class movementplayer : MonoBehaviour
             Debug.Log(closestEnemy.name);
 
             isShooting = true;
+            //invincible = true;
 
             //Flip player if needed
             float xDistance = this.transform.position.x - closestEnemy.transform.position.x;
@@ -378,6 +384,10 @@ public class movementplayer : MonoBehaviour
             //Enemy takes damage
             closestEnemy.GetComponentInParent<EnemyHealth>().EnemyTakeDamage(shotDamage);
 
+            rigidBody.velocity = Vector3.zero;
+            rigidBody.angularVelocity = 0f;
+            rigidBody.AddForce(new Vector2(-playerJumpPower * direction / 4, playerJumpPower / 4));
+
             canShoot = false;
             Invoke("enableShooting", shootCooldown);
 
@@ -388,12 +398,6 @@ public class movementplayer : MonoBehaviour
 
     void enableShooting() {
         canShoot = true;
-    }
-
-    void stopShooting() {
-        if (isShooting && animator.GetCurrentAnimatorStateInfo(0).IsName("pirateShoot")) {
-            isShooting = false;
-        }
     }
 
     void FlipPlayer()
