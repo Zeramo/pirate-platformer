@@ -18,14 +18,14 @@ public class movementplayer : MonoBehaviour
     public int playerJumpPower = 750;
     public float playerDashPower = 15f;
     private float dashTime;
-    public float startDashTime;
-    public float dashCooldown = 3f;
+    public float startDashTime = .25f;
+    public float dashCooldown = .5f;
     private bool dashEnabled = true;
     public int playerHealth = 1;
     public int meleeDamage = 1;
     public int shotDamage = 2;
     public float maxShootingDistance = 25f;
-    public float startInvincibilityTime;
+    public float startInvincibilityTime = .5f;
     private bool invincible = false;
     private static int localGold;
     public int lastLevelnumber = 4;

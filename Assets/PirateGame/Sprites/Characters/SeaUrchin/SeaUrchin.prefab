@@ -71,7 +71,7 @@ GameObject:
   - component: {fileID: 6382562555550237653}
   - component: {fileID: 6382562555550237654}
   - component: {fileID: 6382562555550237655}
-  - component: {fileID: 2118465907144713619}
+  - component: {fileID: -3555030571032494127}
   m_Layer: 10
   m_Name: SeaUrchin
   m_TagString: Untagged
@@ -225,7 +225,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   groundLayer:
     serializedVersion: 2
-    m_Bits: 2048
+    m_Bits: 18432
   playerLayer:
     serializedVersion: 2
     m_Bits: 512
@@ -235,7 +235,7 @@ MonoBehaviour:
   enemyDamage: 1
   groundRCLength: 0.5
   audioManager: {fileID: 0}
---- !u!114 &2118465907144713619
+--- !u!114 &-3555030571032494127
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -247,8 +247,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8faa6c0373ebb294a97472df3a1be87f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyHealth: 1
+  initialEnemyHealth: 2
   invincibilityDuration: 0.5
   goldValue: 1
   goldPile: {fileID: 2422473833134265640, guid: 590d5c09d0430af45b3371a2ff693dae, type: 3}
   invincible: 0
+  rewardsGold: 1

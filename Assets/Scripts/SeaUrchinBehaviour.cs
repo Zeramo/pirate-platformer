@@ -20,6 +20,7 @@ public class SeaUrchinBehaviour : MonoBehaviour
     EnemyHealth health;
     int hp;
     private bool invincible;
+    private int damagePhases;
 
     [Header("Attack Properties")]
     private Transform player;
@@ -46,7 +47,7 @@ public class SeaUrchinBehaviour : MonoBehaviour
         boxCollider = GetComponent<BoxCollider2D>();
 
         player = GameObject.Find("Player").transform;
-        groundLayer = LayerMask.GetMask("Platforms");
+        //groundLayer = LayerMask.GetMask("Platforms");
         playerLayer = LayerMask.GetMask("Player");
 
         rigidBody = GetComponent<Rigidbody2D>();
@@ -57,7 +58,7 @@ public class SeaUrchinBehaviour : MonoBehaviour
         damagedParamID = Animator.StringToHash("hasBeenDamaged");
 
         health = GetComponent<EnemyHealth>();
-        hp = health.enemyHealth;
+        hp = health.getInitialHealth();
 
         GameManager.RegisterEnemy();
 
@@ -73,6 +74,7 @@ public class SeaUrchinBehaviour : MonoBehaviour
             return;
         }
 
+        hp = health.getRemainingHealth();
         updateStun();
         CheckSurroundings();
         Move();
@@ -109,7 +111,7 @@ public class SeaUrchinBehaviour : MonoBehaviour
             //If player is in sight, but out of range and there is no obstacle, Chase
             if (playerInSight && !obstacle && !invincible) Chase();
             //If there is an obstacle, and the enemy can jump, Jump
-            if (obstacle && jumpAvailable && !invincible) Jump();
+            if (jumpAvailable && !invincible) Jump();
         }
         else Idle();
         
@@ -133,7 +135,8 @@ public class SeaUrchinBehaviour : MonoBehaviour
 
         //ForceMode Impulse to avoid catapult-like jumps that exceed enemyJumpForce.
         //Jump height is calculated differently here, so enemyJumpForce is a lot lower than that of the player.
-        rigidBody.AddForce(Vector2.up * enemyJumpForce, ForceMode2D.Impulse);
+        //rigidBody.AddForce(Vector2.up * enemyJumpForce, ForceMode2D.Impulse);
+        rigidBody.AddForce(new Vector2(direction*enemySpeed, enemyJumpForce), ForceMode2D.Impulse);
 
         //plays according audio cue
         audioManager.Play("Swordfish");
@@ -153,6 +156,11 @@ public class SeaUrchinBehaviour : MonoBehaviour
         {
             Debug.Log("Enemy trigger has collided with Player, Player damaged");
             col.gameObject.GetComponent<movementplayer>().PlayerTakeDamage(enemyDamage);
+            damagePhases += 1;
+            if (damagePhases >= health.getInitialHealth()) {
+                health.disableGold();
+            }
+            health.EnemyTakeDamage(1);
 
         }
     }

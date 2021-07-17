@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class EnemyHealth : MonoBehaviour
 {
-    public int enemyHealth = 1;
+    public int initialEnemyHealth = 1;
+    private int enemyHealth;
     public float invincibilityDuration = .25f;
     public int goldValue = 2;
     public GameObject goldPile;
 
     public bool invincible = false;
+    public bool rewardsGold = true;
 
     BoxCollider2D[] subBoxColliders;
     Rigidbody2D rigidBody;
@@ -19,6 +21,8 @@ public class EnemyHealth : MonoBehaviour
     {
         subBoxColliders = GetComponentsInChildren<BoxCollider2D>();
         rigidBody = rigidBody = GetComponent<Rigidbody2D>();
+
+        enemyHealth = initialEnemyHealth;
     }
 
 
@@ -54,7 +58,9 @@ public class EnemyHealth : MonoBehaviour
     void DestroyEnemy()
     {
         Destroy(gameObject);
-        spawnGold();
+        if (rewardsGold) {
+            spawnGold();
+        }
     }
 
     void spawnGold()
@@ -70,5 +76,17 @@ public class EnemyHealth : MonoBehaviour
 
     public void setInvincible(bool invincible) {
         this.invincible = invincible;
+    }
+
+    public int getInitialHealth() {
+        return initialEnemyHealth;
+    }
+
+    public int getRemainingHealth() {
+        return enemyHealth;
+    }
+
+    public void disableGold() {
+        rewardsGold = false;
     }
 }

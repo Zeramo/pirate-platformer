@@ -175,11 +175,11 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 10
+  m_Mass: 5
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: a673af0d9249018418d40e01043fd8bb, type: 2}
   m_Interpolate: 1
   m_SleepingMode: 1
   m_CollisionDetection: 1
@@ -202,7 +202,7 @@ MonoBehaviour:
   minSightRange: 5
   maxSightRange: 100
   enemyDamage: 1
-  enemyJumpForce: 15
+  enemyJumpForce: 30
   timeBetweenAttacks: 3
   bombTravelLength: 20
   bomb: {fileID: 8014842182565784065, guid: 6de799f997d4c4c47abed09b8fcc77f3, type: 3}
@@ -219,8 +219,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8faa6c0373ebb294a97472df3a1be87f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyHealth: 4
+  initialEnemyHealth: 2
   invincibilityDuration: 0.25
   goldValue: 3
   goldPile: {fileID: 2422473833134265640, guid: 590d5c09d0430af45b3371a2ff693dae, type: 3}
   invincible: 0
+  rewardsGold: 1
