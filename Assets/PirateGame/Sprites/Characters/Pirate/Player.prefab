@@ -223,7 +223,7 @@ MonoBehaviour:
   footOffset: 0.41
   platformsLayer:
     serializedVersion: 2
-    m_Bits: 2048
+    m_Bits: 18432
   enemyLayer:
     serializedVersion: 2
     m_Bits: 1024

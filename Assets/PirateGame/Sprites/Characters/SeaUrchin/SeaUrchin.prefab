@@ -247,7 +247,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8faa6c0373ebb294a97472df3a1be87f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyHealth: 2
+  initialEnemyHealth: 2
   invincibilityDuration: 0.5
   goldValue: 1
   goldPile: {fileID: 2422473833134265640, guid: 590d5c09d0430af45b3371a2ff693dae, type: 3}
