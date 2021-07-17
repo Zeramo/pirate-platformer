@@ -152,7 +152,7 @@ public class SeaUrchinBehaviour : MonoBehaviour
     void OnTriggerEnter2D(Collider2D col)
     {
         //Debug.Log("Enemy has collided with " + col.collider);
-        if (col.gameObject.layer == LayerMask.NameToLayer("Player") && hp > 0)
+        if (col.gameObject.layer == LayerMask.NameToLayer("Player") && hp > 0 && !invincible)
         {
             Debug.Log("Enemy trigger has collided with Player, Player damaged");
             col.gameObject.GetComponent<movementplayer>().PlayerTakeDamage(enemyDamage);

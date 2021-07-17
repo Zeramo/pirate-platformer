@@ -214,6 +214,7 @@ MonoBehaviour:
   meleeDamage: 1
   shotDamage: 2
   maxShootingDistance: 12
+  shootCooldown: 1
   startInvincibilityTime: 0.3
   lastLevelnumber: 4
   isGrounded: 0

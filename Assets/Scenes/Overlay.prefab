@@ -34,7 +34,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 537.3721, y: -45.521}
+  m_AnchoredPosition: {x: 629.3, y: -45.521}
   m_SizeDelta: {x: 211.684, y: 41.242}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7498915770642019733
@@ -78,7 +78,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: ' Go right to the End of the Level'
+  m_Text: Head right to reach your ship
 --- !u!1 &4320078815079905977
 GameObject:
   m_ObjectHideFlags: 0
@@ -113,7 +113,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -272.7, y: 131.9}
+  m_AnchoredPosition: {x: -318.7, y: 228.1}
   m_SizeDelta: {x: 7.16, y: 5.96}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &356211950334691998
@@ -1040,7 +1040,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -196.8, y: 130.1}
+  m_AnchoredPosition: {x: -243.2, y: 228.1}
   m_SizeDelta: {x: 25.589998, y: 10.483403}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8899708686285042701

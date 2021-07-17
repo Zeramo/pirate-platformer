@@ -25,6 +25,9 @@ public class movementplayer : MonoBehaviour
     public int meleeDamage = 1;
     public int shotDamage = 2;
     public float maxShootingDistance = 25f;
+    public float shootCooldown = .5f;
+    private bool canShoot = true;
+    private bool isShooting = false;
     public float startInvincibilityTime = .5f;
     private bool invincible = false;
     private static int localGold;
@@ -111,6 +114,11 @@ public class movementplayer : MonoBehaviour
     }
 
     void CheckJumpOrDash(){
+        //as soon as the shoot anim stops, the player can act again
+        if (isShooting && !animator.GetCurrentAnimatorStateInfo(0).IsName("pirateShoot")) {
+            isShooting = false;
+        }
+
         //If player is currently dashing, disable animation trigger and continue the dash
         if (isDashing)
         {
@@ -119,7 +127,7 @@ public class movementplayer : MonoBehaviour
         }
         //If player starts a dash, and player is on the ground, double jumping becomes
         //unavailable. Start dashing animation and dash movement
-        if (Input.GetButtonDown("Dash") && isGrounded == true && dashEnabled)
+        if (Input.GetButtonDown("Dash") && isGrounded == true && dashEnabled && !isShooting)
         {
             doubleJump = false;
             animationDashing = true;
@@ -130,7 +138,7 @@ public class movementplayer : MonoBehaviour
             audioManager.Play("playerDash");
         }
         //If player is in the air and wants to dash, disable double jump, start dashing animation and movement
-        else if (Input.GetButtonDown("Dash") && doubleJump && dashEnabled)
+        else if (Input.GetButtonDown("Dash") && doubleJump && dashEnabled && !isShooting)
         {
             doubleJump = false;
             animationDashing = true;
@@ -155,9 +163,10 @@ public class movementplayer : MonoBehaviour
     }
 
     void CheckShootOrMelee(){
+
         //When player starts a melee attack and is not dashing or stabbing, start stabbing animation
         if(Input.GetButtonDown("Melee") && isDashing == false &&
-            !animator.GetCurrentAnimatorStateInfo(0).IsName("pirate_stab"))
+            !animator.GetCurrentAnimatorStateInfo(0).IsName("pirate_stab") && !isShooting)
         {
             Debug.Log("Melee");
             isStabbing = true;
@@ -166,14 +175,11 @@ public class movementplayer : MonoBehaviour
             audioManager.Play("playerStab");
         }
         //When player wants to shoot and is not dashing, reset animation trigger and player shoots
-        else if (Input.GetButtonDown("Shoot") && isDashing == false)
+        else if (Input.GetButtonDown("Shoot") && isDashing == false && canShoot)
         {
             Debug.Log("shooting");
             isStabbing = false;
             Shoot();
-
-            //plays according audio cue
-            audioManager.Play("playerShoot");
         }
         //Reset animation trigger
         else {
@@ -246,7 +252,7 @@ public class movementplayer : MonoBehaviour
             Debug.Log("End Dash");
         }
         */
-        if(!isDashing)  //Move on x Axis if Dash is Over
+        if(!isDashing && !isShooting)  //Move on x Axis if Dash is Over
         {
             //get input speed
             moveX = Input.GetAxis("Horizontal");
@@ -267,6 +273,7 @@ public class movementplayer : MonoBehaviour
         animator.SetBool("animationDashing", animationDashing);
         animator.SetBool("isStabbing", isStabbing);
         animator.SetBool("hasBeenDamaged", hasBeenDamaged);
+        animator.SetBool("isShooting", isShooting);
         if (hasBeenDamaged) hasBeenDamaged = false;
     }
 
@@ -350,7 +357,7 @@ public class movementplayer : MonoBehaviour
             //Offset for origin of the shot
             Vector2 offset = new Vector2(.3f, .5f);
 
-            //When there is something in the way, do not fire the shot
+            //If there is something in the way, do not fire the shot
             RaycastHit2D hitObstacle = MyRaycast(offset, closestEnemyDir, distance, platformsLayer);
             Color color = hitObstacle ? Color.red : Color.green;
             Debug.DrawRay(new Vector2(transform.position.x, transform.position.y) + offset, closestEnemyDir, color, 5f);
@@ -358,10 +365,34 @@ public class movementplayer : MonoBehaviour
                 return;
 
             Debug.Log(closestEnemy.name);
+
+            isShooting = true;
+
+            //Flip player if needed
+            float xDistance = this.transform.position.x - closestEnemy.transform.position.x;
+            if (Mathf.Abs(xDistance + direction) > Mathf.Abs(xDistance)) {
+                FlipPlayer();
+            }
             //Shake the camera
             CameraShaker.Instance.ShakeCamera(3f, .075f);
             //Enemy takes damage
             closestEnemy.GetComponentInParent<EnemyHealth>().EnemyTakeDamage(shotDamage);
+
+            canShoot = false;
+            Invoke("enableShooting", shootCooldown);
+
+            //plays according audio cue
+            audioManager.Play("playerShoot");
+        }
+    }
+
+    void enableShooting() {
+        canShoot = true;
+    }
+
+    void stopShooting() {
+        if (isShooting && animator.GetCurrentAnimatorStateInfo(0).IsName("pirateShoot")) {
+            isShooting = false;
         }
     }
 

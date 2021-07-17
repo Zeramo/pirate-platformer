@@ -40,7 +40,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 6382562555010784567}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 6200000, guid: 6eee4a125e1b6f54bad6e7f33c56b91a, type: 2}
+  m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -248,7 +248,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   initialEnemyHealth: 2
-  invincibilityDuration: 0.5
+  invincibilityDuration: 1
   goldValue: 1
   goldPile: {fileID: 2422473833134265640, guid: 590d5c09d0430af45b3371a2ff693dae, type: 3}
   invincible: 0
