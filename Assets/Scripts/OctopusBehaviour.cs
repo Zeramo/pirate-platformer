@@ -94,7 +94,7 @@ public class OctopusBehaviour : MonoBehaviour
                 Attack();
 
                 //plays according audio cue
-                audioManager.Play("Swordfish");
+                audioManager.Play("OctopusAttack");
             }
         }
         else Idle();
@@ -191,7 +191,7 @@ public class OctopusBehaviour : MonoBehaviour
             rigidBody.AddForce(new Vector2((player.position.x - rigidBody.position.x) * -7.5f, enemyJumpForce*.75f), ForceMode2D.Impulse);
 
             //plays according audio cue
-            audioManager.Play("SwordfishHurt");
+            audioManager.Play("OctopusHurt");
         }
         invincible = health.getInvincible();
     }

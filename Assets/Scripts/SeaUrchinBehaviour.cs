@@ -139,7 +139,7 @@ public class SeaUrchinBehaviour : MonoBehaviour
         rigidBody.AddForce(new Vector2(direction*enemySpeed, enemyJumpForce), ForceMode2D.Impulse);
 
         //plays according audio cue
-        audioManager.Play("Swordfish");
+        audioManager.Play("SeaUrchin");
     }
 
     void Idle()
@@ -186,7 +186,7 @@ public class SeaUrchinBehaviour : MonoBehaviour
 
         if (!invincible && health.getInvincible()) {
             //plays according audio cue
-            audioManager.Play("SwordfishHurt");
+            audioManager.Play("SeaUrchin");
         }
         invincible = health.getInvincible();
     }

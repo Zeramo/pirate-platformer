@@ -13666,6 +13666,30 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6611810631409276397, guid: 33a3b488200b84d4c81e31782de9f0b0, type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: a08126058fc1ea940b46fa41fce88595, type: 3}
+    - target: {fileID: 6611810631409276397, guid: 33a3b488200b84d4c81e31782de9f0b0, type: 3}
+      propertyPath: m_FontData.m_FontStyle
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6611810631578985900, guid: 33a3b488200b84d4c81e31782de9f0b0, type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: a08126058fc1ea940b46fa41fce88595, type: 3}
+    - target: {fileID: 6611810631578985900, guid: 33a3b488200b84d4c81e31782de9f0b0, type: 3}
+      propertyPath: m_FontData.m_FontStyle
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6611810631719680739, guid: 33a3b488200b84d4c81e31782de9f0b0, type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: a08126058fc1ea940b46fa41fce88595, type: 3}
+    - target: {fileID: 6611810631719680739, guid: 33a3b488200b84d4c81e31782de9f0b0, type: 3}
+      propertyPath: m_FontData.m_FontStyle
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6611810632415964182, guid: 33a3b488200b84d4c81e31782de9f0b0, type: 3}
       propertyPath: m_RootOrder
       value: 11
@@ -13714,6 +13738,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Overlay
       objectReference: {fileID: 0}
+    - target: {fileID: 6611810632816511304, guid: 33a3b488200b84d4c81e31782de9f0b0, type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: a08126058fc1ea940b46fa41fce88595, type: 3}
+    - target: {fileID: 6611810632816511304, guid: 33a3b488200b84d4c81e31782de9f0b0, type: 3}
+      propertyPath: m_FontData.m_FontStyle
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 33a3b488200b84d4c81e31782de9f0b0, type: 3}
 --- !u!1001 &8145274292088421717
@@ -13723,6 +13755,42 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 8145274292223833360, guid: b773952db02730242959ac59b8fc42cf, type: 3}
+      propertyPath: sounds.Array.size
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 8145274292223833360, guid: b773952db02730242959ac59b8fc42cf, type: 3}
+      propertyPath: sounds.Array.data[9].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: a2414e70fd764fa4588d377f319bc3c7, type: 3}
+    - target: {fileID: 8145274292223833360, guid: b773952db02730242959ac59b8fc42cf, type: 3}
+      propertyPath: sounds.Array.data[9].name
+      value: OctopusAttack
+      objectReference: {fileID: 0}
+    - target: {fileID: 8145274292223833360, guid: b773952db02730242959ac59b8fc42cf, type: 3}
+      propertyPath: sounds.Array.data[10].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 373bf7a0b81fa3140b2271b4eb858d3d, type: 3}
+    - target: {fileID: 8145274292223833360, guid: b773952db02730242959ac59b8fc42cf, type: 3}
+      propertyPath: sounds.Array.data[10].name
+      value: OctopusHurt
+      objectReference: {fileID: 0}
+    - target: {fileID: 8145274292223833360, guid: b773952db02730242959ac59b8fc42cf, type: 3}
+      propertyPath: sounds.Array.data[9].pitch
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8145274292223833360, guid: b773952db02730242959ac59b8fc42cf, type: 3}
+      propertyPath: sounds.Array.data[10].pitch
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8145274292223833360, guid: b773952db02730242959ac59b8fc42cf, type: 3}
+      propertyPath: sounds.Array.data[9].volume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8145274292223833360, guid: b773952db02730242959ac59b8fc42cf, type: 3}
+      propertyPath: sounds.Array.data[10].volume
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8145274292223833361, guid: b773952db02730242959ac59b8fc42cf, type: 3}
       propertyPath: m_Name
       value: AudioManager
