@@ -11,7 +11,7 @@ public class Scene1Sup : MonoBehaviour
     void Start(){
         GameManager.resetCounters();
         localhighscore = GameManager.GetHighScore();
-        highscore.text = "Highscore :" + localhighscore.ToString();
+        highscore.text = localhighscore.ToString();
 
     }
 
