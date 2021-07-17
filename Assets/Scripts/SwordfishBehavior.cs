@@ -56,7 +56,7 @@ public class SwordfishBehavior : MonoBehaviour
         boxColliderSword = boxColliders[1];
 
         player = GameObject.Find("Player").transform;
-        groundLayer = LayerMask.GetMask("Platforms");
+        //groundLayer = LayerMask.GetMask("Platforms");
         playerLayer = LayerMask.GetMask("Player");
 
         rigidBody = GetComponent<Rigidbody2D>();
@@ -68,7 +68,7 @@ public class SwordfishBehavior : MonoBehaviour
         damagedParamID = Animator.StringToHash("hasBeenDamaged");
 
         health = GetComponent<EnemyHealth>();
-        hp = health.enemyHealth;
+        hp = health.getInitialHealth();
 
         GameManager.RegisterEnemy();
 
@@ -82,7 +82,8 @@ public class SwordfishBehavior : MonoBehaviour
             Idle();
             return;
         }
-            
+
+        hp = health.getRemainingHealth();
         updateStun();
         CheckSurroundings();
         Move();

@@ -209,10 +209,13 @@ MonoBehaviour:
   playerJumpPower: 750
   playerDashPower: 25
   startDashTime: 0.25
+  dashCooldown: 3
   playerHealth: 5
   meleeDamage: 1
   shotDamage: 2
   maxShootingDistance: 12
+  startInvincibilityTime: 0.3
+  lastLevelnumber: 4
   isGrounded: 0
   doubleJump: 0
   coyote: 0.08
@@ -224,6 +227,7 @@ MonoBehaviour:
   enemyLayer:
     serializedVersion: 2
     m_Bits: 1024
+  audioManager: {fileID: 0}
 --- !u!95 &4985083534955574820
 Animator:
   serializedVersion: 3

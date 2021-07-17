@@ -25,7 +25,7 @@ public class movementplayer : MonoBehaviour
     public int meleeDamage = 1;
     public int shotDamage = 2;
     public float maxShootingDistance = 25f;
-    public float startInvincibilityTime;
+    public float startInvincibilityTime = .3f;
     private bool invincible = false;
     private static int localGold;
     public int lastLevelnumber = 4;

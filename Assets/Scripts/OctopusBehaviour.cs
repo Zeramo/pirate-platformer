@@ -20,6 +20,7 @@ public class OctopusBehaviour : MonoBehaviour
     [Header("Attack Properties")]
     public float timeBetweenAttacks = 5f;
     public float bombTravelLength = 10f;
+    public bool damageOnContact = false;
     bool hasAttacked;
     public GameObject bomb;
 
@@ -55,7 +56,7 @@ public class OctopusBehaviour : MonoBehaviour
         damagedParamID = Animator.StringToHash("hasBeenDamaged");
 
         health = GetComponent<EnemyHealth>();
-        hp = health.enemyHealth;
+        hp = health.getInitialHealth();
 
         GameManager.RegisterEnemy();
 
@@ -70,6 +71,7 @@ public class OctopusBehaviour : MonoBehaviour
             return;
         }
             
+        hp = health.getRemainingHealth();
         updateStun();
         CheckForAttack();
         AnimateSwordfish();
@@ -153,7 +155,7 @@ public class OctopusBehaviour : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D col)
     {
         //When the object the trigger collided with is on the player layer...
-        if (col.gameObject.layer == LayerMask.NameToLayer("Player") && hp > 0)
+        if (col.gameObject.layer == LayerMask.NameToLayer("Player") && hp > 0 && damageOnContact)
         {
             Debug.Log("the player has collided with " + col.gameObject.name);
             //... the player takes damage

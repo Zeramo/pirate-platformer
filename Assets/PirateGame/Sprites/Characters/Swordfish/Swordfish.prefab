@@ -233,7 +233,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   groundLayer:
     serializedVersion: 2
-    m_Bits: 2048
+    m_Bits: 18432
   playerLayer:
     serializedVersion: 2
     m_Bits: 512

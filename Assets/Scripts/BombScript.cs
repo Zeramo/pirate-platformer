@@ -10,6 +10,7 @@ public class BombScript : MonoBehaviour
     public Animator animator;
 
     public float explosionTime = .5f;
+    public int explosionDamage = 3;
     public float autoTriggerTime = 3f;
     public float initialLifeTime = .1f;
     private bool collisionTestable = false;
@@ -66,7 +67,7 @@ public class BombScript : MonoBehaviour
 
             if (!playerHasBeenDamaged)
             {
-                col.gameObject.GetComponent<movementplayer>().PlayerTakeDamage(5);
+                col.gameObject.GetComponent<movementplayer>().PlayerTakeDamage(explosionDamage);
                 playerHasBeenDamaged = true;
             }
         }
