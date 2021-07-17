@@ -89,3 +89,13 @@ MonoBehaviour:
     volume: 1
     pitch: 1
     source: {fileID: 0}
+  - name: OctopusAttack
+    clip: {fileID: 8300000, guid: 373bf7a0b81fa3140b2271b4eb858d3d, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: OctopusHurt
+    clip: {fileID: 8300000, guid: 373bf7a0b81fa3140b2271b4eb858d3d, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
