@@ -32,6 +32,7 @@ public class movementplayer : MonoBehaviour
     private bool invincible = false;
     private static int localGold;
     public int lastLevelnumber = 4;
+    public int enemyhitscore = 1;
 
     private float moveX;
 
@@ -436,7 +437,7 @@ public class movementplayer : MonoBehaviour
                 rigidBody.AddForce(Vector2.up * 500);
                 //rigidBody.velocity = new Vector2(direction, 0) * playerDashPower;
 
-                GameManager.DecreaseScore(damage);
+                //GameManager.DecreaseScore(damage);
                 GameManager.SetGold(localGold - damage);
                 //Shake the camera
                 CameraShaker.Instance.ShakeCamera(.5f, .05f);
@@ -518,6 +519,7 @@ public class movementplayer : MonoBehaviour
     {
         if(col.gameObject.layer == LayerMask.NameToLayer("Enemies") && (animator.GetCurrentAnimatorStateInfo(0).IsName("pirate_stab") || animator.GetCurrentAnimatorStateInfo(0).IsName("pirate_dash")))
         {
+            GameManager.AddScore(enemyhitscore);
             Debug.Log("A trigger has collided with " + col.gameObject.name);
             col.gameObject.GetComponentInParent<EnemyHealth>().EnemyTakeDamage(meleeDamage);
         }

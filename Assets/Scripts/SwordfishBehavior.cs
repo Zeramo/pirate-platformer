@@ -23,6 +23,7 @@ public class SwordfishBehavior : MonoBehaviour
     EnemyHealth health;
     int hp;
     private bool invincible;
+    public int scoreOnDeath = 20;
 
     [Header("Attack Properties")]
     public float timeBetweenAttacks = 3f;
@@ -68,7 +69,7 @@ public class SwordfishBehavior : MonoBehaviour
         damagedParamID = Animator.StringToHash("hasBeenDamaged");
 
         health = GetComponent<EnemyHealth>();
-        hp = health.getInitialHealth();
+        hp = health.getInitialHealth(scoreOnDeath);
 
         GameManager.RegisterEnemy();
 

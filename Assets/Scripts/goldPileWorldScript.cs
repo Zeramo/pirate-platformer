@@ -5,6 +5,7 @@ using UnityEngine;
 public class goldPileWorldScript : MonoBehaviour
 {
     public int goldValue;
+    public int scoreOnCollected = 10;
 
     public AudioManager audioManager;
 
@@ -24,7 +25,7 @@ public class goldPileWorldScript : MonoBehaviour
             //plays according audio cue
             audioManager.Play("goldPickUp");
 
-            GameManager.IncreaseScore(goldValue);
+            GameManager.AddScore(scoreOnCollected);
             GameManager.AddGold(goldValue);
             
 

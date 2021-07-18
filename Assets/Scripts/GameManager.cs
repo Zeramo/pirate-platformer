@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
 
     public float deathDuration = 0.1f;                //Duration before scene transition is started
     public int lastLevelNumber = 4;
+    public int scoreOnLevelCompletion = 100;
 
     Skiff winZoneSkiff;
 
@@ -128,7 +129,8 @@ public class GameManager : MonoBehaviour
     {
         if (current == null)
             return;
-
+        
+        GameManager.AddScore(current.scoreOnLevelCompletion);
         //REMOVE if there is a set number of enemies per level
         current.numEnemies = 5;
 
@@ -141,16 +143,16 @@ public class GameManager : MonoBehaviour
     {
         current.playerDead = false;
     }
-
+    /*
     public static void IncreaseScore(int score)
     {
         current.score += score;
         //if (current.score > current.highScore)
         //    current.highScore = current.score;
         Debug.Log(current.score);
-    }
+    }*/
 
-    public static void DecreaseScore(int score)
+    /*public static void DecreaseScore(int score)
     {
         if (current.score - score <= 0)
             current.score = 0;
@@ -158,7 +160,7 @@ public class GameManager : MonoBehaviour
             current.score -= score;
         
         Debug.Log(current.score);
-    }
+    }*/
 
     public static int GetHighScore()
     {
@@ -197,6 +199,7 @@ public class GameManager : MonoBehaviour
             return;
 
         current.allowExit = false;
+        
         Initiate.Fade("Scene" + (current.sceneIndex + 1), current.loadToColor, 1f);
 
         //REMOVE if there is a set number of enemies per level
@@ -257,6 +260,9 @@ public class GameManager : MonoBehaviour
     }
     public static void SetMessage(string i){
         current.uiMessage = i;
+    }
+    public static void AddScore(int i){
+        current.score += i;
     }
 
 

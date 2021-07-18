@@ -16,6 +16,7 @@ public class OctopusBehaviour : MonoBehaviour
     int hp;
     private bool invincible;
     public float enemyJumpForce;
+    public int scoreOnDeath = 30;
 
     [Header("Attack Properties")]
     public float timeBetweenAttacks = 5f;
@@ -56,7 +57,7 @@ public class OctopusBehaviour : MonoBehaviour
         damagedParamID = Animator.StringToHash("hasBeenDamaged");
 
         health = GetComponent<EnemyHealth>();
-        hp = health.getInitialHealth();
+        hp = health.getInitialHealth(scoreOnDeath);
 
         GameManager.RegisterEnemy();
 

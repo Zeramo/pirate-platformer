@@ -6,6 +6,7 @@ public class goldPileScript : MonoBehaviour
 {
     public int goldValue ;
     private float lifeTime = 3f;
+    public int scoreOnCollected = 10;
 
     public AudioManager audioManager;
 
@@ -25,8 +26,8 @@ public class goldPileScript : MonoBehaviour
 
             //plays according audio cue
             audioManager.Play("goldPickUp");
-
-            GameManager.IncreaseScore(goldValue);
+            
+            GameManager.AddScore(scoreOnCollected);
             GameManager.AddGold(goldValue);
             
 

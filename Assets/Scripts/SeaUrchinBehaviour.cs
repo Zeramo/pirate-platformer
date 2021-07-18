@@ -21,6 +21,7 @@ public class SeaUrchinBehaviour : MonoBehaviour
     int hp;
     private bool invincible;
     private int damagePhases;
+    public int scoreOnDeath = 10;
 
     [Header("Attack Properties")]
     private Transform player;
@@ -58,7 +59,7 @@ public class SeaUrchinBehaviour : MonoBehaviour
         damagedParamID = Animator.StringToHash("hasBeenDamaged");
 
         health = GetComponent<EnemyHealth>();
-        hp = health.getInitialHealth();
+        hp = health.getInitialHealth(scoreOnDeath);
 
         GameManager.RegisterEnemy();
 
@@ -157,7 +158,7 @@ public class SeaUrchinBehaviour : MonoBehaviour
             Debug.Log("Enemy trigger has collided with Player, Player damaged");
             col.gameObject.GetComponent<movementplayer>().PlayerTakeDamage(enemyDamage);
             damagePhases += 1;
-            if (damagePhases >= health.getInitialHealth()) {
+            if (damagePhases >= health.getInitialHealth(scoreOnDeath)) {
                 health.disableGold();
             }
             health.EnemyTakeDamage(1);

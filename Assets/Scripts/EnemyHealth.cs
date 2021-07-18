@@ -12,6 +12,7 @@ public class EnemyHealth : MonoBehaviour
 
     public bool invincible = false;
     public bool rewardsGold = true;
+    private int scoreToGive = 0;
 
     BoxCollider2D[] subBoxColliders;
     Rigidbody2D rigidBody;
@@ -39,6 +40,7 @@ public class EnemyHealth : MonoBehaviour
                 return;
 
             //Destroy game object after 0.5 seconds, disable trigger colliders and allow enemy to fall over
+            GameManager.AddScore(scoreToGive);
             Invoke(nameof(DestroyEnemy), .5f);
             GameManager.RemoveEnemy();
 
@@ -78,7 +80,8 @@ public class EnemyHealth : MonoBehaviour
         this.invincible = invincible;
     }
 
-    public int getInitialHealth() {
+    public int getInitialHealth(int score) {
+        scoreToGive = score;
         return initialEnemyHealth;
     }
 
