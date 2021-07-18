@@ -450,8 +450,6 @@ public class movementplayer : MonoBehaviour
                 //gameObject.SetActive(false);
                 GameManager.SetGold(0);
                 GameManager.PlayerDied();
-                
-                
             }
         }
     } /*
