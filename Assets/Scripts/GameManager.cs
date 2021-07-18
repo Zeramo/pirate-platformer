@@ -265,7 +265,9 @@ public class GameManager : MonoBehaviour
     public static void AddScore(int i){
         current.score += i;
     }
-
+    public static void SetEnemyNum(int i){
+        current.numEnemies = i; 
+    }
 
 
 }

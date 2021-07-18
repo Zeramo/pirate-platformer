@@ -7,7 +7,7 @@ public class EnemyHealth : MonoBehaviour
     public int initialEnemyHealth = 1;
     private int enemyHealth;
     public float invincibilityDuration = .25f;
-    public int goldValue = 2;
+    public int goldValue = 1;
     public GameObject goldPile;
 
     public bool invincible = false;

@@ -34,7 +34,7 @@ public class goldPileScript : MonoBehaviour
             DestroyGold();
         }
     }
-
+    
     public void setGoldValue (int goldValue) {
         this.goldValue = goldValue;
     }
