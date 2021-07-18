@@ -18,7 +18,7 @@ public class Waterdeath : MonoBehaviour
         {
             Debug.Log("Water has detected " + col.gameObject.name);
             //... the player takes damage
-            col.gameObject.GetComponent<movementplayer>().PlayerTakeDamage(-1);
+            GameManager.PlayerDrowned();
         }
     }
 }

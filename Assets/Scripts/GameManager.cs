@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour
     int score;  
     int highScore;
 
+    public int initialNumEnemies = 5;
     int numEnemies;                                 //Number of enemies that have to be killed player can exit
     bool allowExit;                                 //Is the player allowed to exit?
     bool doneFading;                                 //Has the scene faded in and out completely?
@@ -49,7 +50,7 @@ public class GameManager : MonoBehaviour
         current.score = 0;
         current.highScore = 0;
         current.doneFading = true;
-        current.numEnemies = 5;      //Change to 0 if there is a set number of enemies per level
+        current.numEnemies = current.initialNumEnemies;      //Change to 0 if there is a set number of enemies per level
         if(debugmode){goldCollected = initialGold;} // enable for level testing
         
         allowExit = false;
@@ -98,12 +99,12 @@ public class GameManager : MonoBehaviour
     {
         //current.numDeaths++;
         //UIManager.UpdateDeathUI(current.numDeaths);
-         if(current.debugmode){
+        if(current.debugmode){
             current.Invoke("RestartScene", current.deathDuration);
             return;
          }
         current.playerDead = true;
-         HardCutToScene(current.lastLevelNumber);
+        HardCutToScene(current.lastLevelNumber);
     }
         public static void PlayerDrowned()
     {
@@ -132,7 +133,7 @@ public class GameManager : MonoBehaviour
         
         GameManager.AddScore(current.scoreOnLevelCompletion);
         //REMOVE if there is a set number of enemies per level
-        current.numEnemies = 5;
+        current.numEnemies = current.initialNumEnemies;
 
         Initiate.Fade("Scene" + (current.sceneIndex + 1), current.loadToColor, 1f);
         current.sceneIndex++;
@@ -184,7 +185,7 @@ public class GameManager : MonoBehaviour
         current.allowExit = false;
 
         //REMOVE if there is a set number of enemies per level
-        current.numEnemies = 5;
+        current.numEnemies = current.initialNumEnemies;
 
         if(debugmode){current.goldCollected = initialGold;}
 
@@ -203,7 +204,7 @@ public class GameManager : MonoBehaviour
         Initiate.Fade("Scene" + (current.sceneIndex + 1), current.loadToColor, 1f);
 
         //REMOVE if there is a set number of enemies per level
-        current.numEnemies = 5;
+        current.numEnemies = current.initialNumEnemies;
 
         current.sceneIndex++;
         current.doneFading = false;
@@ -222,7 +223,7 @@ public class GameManager : MonoBehaviour
         Initiate.Fade("Scene" + i, current.loadToColor, 1f);
 
         //REMOVE if there is a set number of enemies per level
-        current.numEnemies = 5;
+        current.numEnemies = current.initialNumEnemies;
 
         current.sceneIndex = i;
 
@@ -232,7 +233,7 @@ public class GameManager : MonoBehaviour
     public static void HardCutToScene(int i)
     {
         //REMOVE if there is a set number of enemies per level
-        current.numEnemies = 5;
+        current.numEnemies = current.initialNumEnemies;
 
         current.allowExit = false;
         SceneManager.LoadScene(i);

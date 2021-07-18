@@ -415,11 +415,11 @@ public class movementplayer : MonoBehaviour
 
     public void PlayerTakeDamage(int damage)
     {
-        if(damage == -1 && !invincible){
+        /*if(damage == -1 && !invincible){
             Debug.Log("Watery death ");
             GameManager.PlayerDrowned();
             return;
-        }
+        }*/
         if(!invincible)
         {
             //playerHealth -= damage;
