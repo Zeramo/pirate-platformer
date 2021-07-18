@@ -7,7 +7,7 @@ public class Overlay : MonoBehaviour
 {
 
     public GameObject treasure1, treasure2, treasure3, treasure4;
-    public Text score, gold;
+    public Text score, gold, gametask;
     private int localscore, localgold;
 
     // Start is called before the first frame update
@@ -28,6 +28,7 @@ public class Overlay : MonoBehaviour
         */        
         score.text = localscore.ToString();
         gold.text = localgold.ToString();
+        gametask.text = GameManager.GetMessage();
         SetGoldIcons(localgold);
 
 

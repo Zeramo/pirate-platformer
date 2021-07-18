@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class goldPileScript : MonoBehaviour
 {
-    public int goldValue;
+    public int goldValue ;
     private float lifeTime = 3f;
 
     public AudioManager audioManager;

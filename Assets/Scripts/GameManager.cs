@@ -22,8 +22,8 @@ public class GameManager : MonoBehaviour
 
     int numEnemies;                                 //Number of enemies that have to be killed player can exit
     bool allowExit;                                 //Is the player allowed to exit?
-    bool doneFading;                               //Has the scene faded in and out completely?
-
+    bool doneFading;                                 //Has the scene faded in and out completely?
+    string uiMessage;
     [Range(1, 10)]
     public int initialGold = 5;
     public bool debugmode = false;
@@ -251,6 +251,12 @@ public class GameManager : MonoBehaviour
     public static void AddGold(){
         current.goldCollected++;
         //Debug.Log("Gold:" + current.goldCollected);
+    }
+    public static string GetMessage(){
+        return current.uiMessage;
+    }
+    public static void SetMessage(string i){
+        current.uiMessage = i;
     }
 
 
