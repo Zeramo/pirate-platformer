@@ -203,8 +203,10 @@ MonoBehaviour:
   maxSightRange: 100
   enemyDamage: 1
   enemyJumpForce: 30
+  scoreOnDeath: 30
   timeBetweenAttacks: 3
   bombTravelLength: 20
+  damageOnContact: 0
   bomb: {fileID: 8014842182565784065, guid: 6de799f997d4c4c47abed09b8fcc77f3, type: 3}
   audioManager: {fileID: 0}
 --- !u!114 &-80959131725869770

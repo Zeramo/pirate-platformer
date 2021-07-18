@@ -10,6 +10,7 @@ public class EnemySpawner : MonoBehaviour
     public float spawnTime = 5f;
     public float intervalReduction = .1f;
     public float minSpawnTime = 1f;
+    public float initialSpawntime = 5f;
 
     void Start() {
 
@@ -18,7 +19,7 @@ public class EnemySpawner : MonoBehaviour
                 spawnPositions.Add(spawn.position);
             }
         }
-        Invoke("spawnEnemy", spawnTime);
+        Invoke("spawnEnemy", initialSpawntime);
     }
 
     void spawnEnemy(){
