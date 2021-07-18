@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
     static GameManager current;
 
     public float deathDuration = 0.1f;                //Duration before scene transition is started
-    public int lastLevelNumber = 4;
+    public int lastLevelNumber = 5;
     public int scoreOnLevelCompletion = 100;
 
     Skiff winZoneSkiff;
@@ -137,6 +137,7 @@ public class GameManager : MonoBehaviour
 
         Initiate.Fade("Scene" + (current.sceneIndex + 1), current.loadToColor, 1f);
         current.sceneIndex++;
+        Debug.Log("Playerwon:"+ current.sceneIndex);
         current.allowExit = false;
     }
 
@@ -244,6 +245,7 @@ public class GameManager : MonoBehaviour
         current.score = 0;
         current.goldCollected = current.initialGold;
         current.playerDead = false;
+        current.initialNumEnemies = 2;
     }
     public static int GetGold(){
         return current.goldCollected;
