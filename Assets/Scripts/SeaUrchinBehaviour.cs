@@ -140,7 +140,7 @@ public class SeaUrchinBehaviour : MonoBehaviour
         rigidBody.AddForce(new Vector2(direction*enemySpeed, enemyJumpForce), ForceMode2D.Impulse);
 
         //plays according audio cue
-        audioManager.Play("SeaUrchin");
+        //audioManager.Play("SeaUrchin");
     }
 
     void Idle()

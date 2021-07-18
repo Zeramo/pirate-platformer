@@ -395,10 +395,10 @@ MonoBehaviour:
     press the Left Mouse Button, to shoot, the Right one.
 
     IV. Gold keeps you
-    safe from the waves and their scabby sea bass!
+    safe from the waves and their scabby sea bass.
 
     V.  Get the highest score
-    to win!'
+    to win.'
 --- !u!222 &79692735
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -600,7 +600,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Press space to set sails!
+  m_Text: Press space to set sails
 --- !u!222 &646976254
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1048,6 +1048,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   deathDuration: 2
   lastLevelNumber: 4
+  scoreOnLevelCompletion: 100
+  initialNumEnemies: 5
   initialGold: 5
   debugmode: 0
 --- !u!4 &1773075092

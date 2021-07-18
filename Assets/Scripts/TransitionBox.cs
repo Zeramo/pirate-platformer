@@ -9,12 +9,13 @@ public class TransitionBox : MonoBehaviour
     public string message = "Head right to reach your ship";
     public bool initArena = false;
     public bool enterArena = false;
+    public int arenaEnemies = 20;
 
     // Update is called once per frame
     private void OnTriggerEnter2D(Collider2D col)
     {   
         if(initArena){GameManager.SetEnemyNum(9999);}
-        if(enterArena){GameManager.SetEnemyNum(20);}
+        if(enterArena){GameManager.SetEnemyNum(arenaEnemies);}
         //When the object the trigger collided with is on the player layer...
         if (col.gameObject.layer == LayerMask.NameToLayer("Player") )
         {

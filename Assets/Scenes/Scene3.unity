@@ -2557,7 +2557,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4399796293685712910, guid: f352e58c790ab9241a02c822a3bceaae, type: 3}
       propertyPath: message
-      value: Head to the Arena
+      value: Head to the arena
       objectReference: {fileID: 0}
     - target: {fileID: 4399796293685712910, guid: f352e58c790ab9241a02c822a3bceaae, type: 3}
       propertyPath: initArena
@@ -2592,6 +2592,10 @@ PrefabInstance:
       value: EnemySpawnerOctopus
       objectReference: {fileID: 0}
     - target: {fileID: 5863074307778264507, guid: 0861d5d9f98a8434092492868a3a9494, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 4985083534888388697}
+    - target: {fileID: 5863074307778264507, guid: 0861d5d9f98a8434092492868a3a9494, type: 3}
       propertyPath: enemyType
       value: 
       objectReference: {fileID: 4103411270324170830, guid: 9ed2868e16e4fa245b94a22ac7034ec1, type: 3}
@@ -2600,8 +2604,20 @@ PrefabInstance:
       value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 5863074307778264507, guid: 0861d5d9f98a8434092492868a3a9494, type: 3}
+      propertyPath: minSpawnTime
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5863074307778264507, guid: 0861d5d9f98a8434092492868a3a9494, type: 3}
       propertyPath: initialSpawntime
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5863074307778264507, guid: 0861d5d9f98a8434092492868a3a9494, type: 3}
+      propertyPath: intervalReduction
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5863074307778264507, guid: 0861d5d9f98a8434092492868a3a9494, type: 3}
+      propertyPath: maxPlayerDistance
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 5863074307778264508, guid: 0861d5d9f98a8434092492868a3a9494, type: 3}
       propertyPath: m_RootOrder
@@ -2829,7 +2845,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4399796293685712910, guid: f352e58c790ab9241a02c822a3bceaae, type: 3}
       propertyPath: message
-      value: Try the Dash
+      value: Try the dash
       objectReference: {fileID: 0}
     - target: {fileID: 4399796293685712911, guid: f352e58c790ab9241a02c822a3bceaae, type: 3}
       propertyPath: m_Name
@@ -7432,11 +7448,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6758931697117033247, guid: 9ed2868e16e4fa245b94a22ac7034ec1, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -78.67
+      value: -66.44
       objectReference: {fileID: 0}
     - target: {fileID: 6758931697117033247, guid: 9ed2868e16e4fa245b94a22ac7034ec1, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3.34
+      value: -2.02
       objectReference: {fileID: 0}
     - target: {fileID: 6758931697117033247, guid: 9ed2868e16e4fa245b94a22ac7034ec1, type: 3}
       propertyPath: m_LocalPosition.z
@@ -8445,7 +8461,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 47760fc2dafd7b441b475304ffd11a6c, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.8
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -8541,7 +8557,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 1e1b66ee2d07b5346823b649683e75d7, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.8
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -8773,8 +8789,12 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5863074307778264506, guid: 0861d5d9f98a8434092492868a3a9494, type: 3}
       propertyPath: m_Name
-      value: EnemySpawner
+      value: EnemySpawnerSwordfish
       objectReference: {fileID: 0}
+    - target: {fileID: 5863074307778264507, guid: 0861d5d9f98a8434092492868a3a9494, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 4985083534888388697}
     - target: {fileID: 5863074307778264507, guid: 0861d5d9f98a8434092492868a3a9494, type: 3}
       propertyPath: enemyType
       value: 
@@ -8784,8 +8804,16 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5863074307778264507, guid: 0861d5d9f98a8434092492868a3a9494, type: 3}
+      propertyPath: minSpawnTime
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5863074307778264507, guid: 0861d5d9f98a8434092492868a3a9494, type: 3}
       propertyPath: intervalReduction
       value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5863074307778264507, guid: 0861d5d9f98a8434092492868a3a9494, type: 3}
+      propertyPath: maxPlayerDistance
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 5863074307778264508, guid: 0861d5d9f98a8434092492868a3a9494, type: 3}
       propertyPath: m_RootOrder
@@ -8951,11 +8979,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4399796293685712910, guid: f352e58c790ab9241a02c822a3bceaae, type: 3}
       propertyPath: message
-      value: Kill 20 Enemys
+      value: Kill 20 enemies to conrinue
       objectReference: {fileID: 0}
     - target: {fileID: 4399796293685712910, guid: f352e58c790ab9241a02c822a3bceaae, type: 3}
       propertyPath: enterArena
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4399796293685712910, guid: f352e58c790ab9241a02c822a3bceaae, type: 3}
+      propertyPath: arenaEnemies
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 4399796293685712911, guid: f352e58c790ab9241a02c822a3bceaae, type: 3}
       propertyPath: m_Name
@@ -8975,8 +9007,16 @@ PrefabInstance:
       value: EnemySpawnerSeaUrchin
       objectReference: {fileID: 0}
     - target: {fileID: 5863074307778264507, guid: 0861d5d9f98a8434092492868a3a9494, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 4985083534888388697}
+    - target: {fileID: 5863074307778264507, guid: 0861d5d9f98a8434092492868a3a9494, type: 3}
       propertyPath: spawnTime
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5863074307778264507, guid: 0861d5d9f98a8434092492868a3a9494, type: 3}
+      propertyPath: intervalReduction
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5863074307778264508, guid: 0861d5d9f98a8434092492868a3a9494, type: 3}
       propertyPath: m_RootOrder
@@ -10226,7 +10266,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3267339902471041276, guid: 050ae40bff977cc428ccb458fd7ad764, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.423383
+      value: -2.6
       objectReference: {fileID: 0}
     - target: {fileID: 3267339902471041276, guid: 050ae40bff977cc428ccb458fd7ad764, type: 3}
       propertyPath: m_LocalPosition.z
@@ -12074,6 +12114,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4f0b2926fdfbf7b409231616b3de1c6f, type: 3}
+--- !u!1 &4985083534888388697 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4985083534955574819, guid: 4f0b2926fdfbf7b409231616b3de1c6f, type: 3}
+  m_PrefabInstance: {fileID: 4985083534888388696}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8145274292088421717
 PrefabInstance:
   m_ObjectHideFlags: 0

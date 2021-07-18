@@ -20,5 +20,11 @@ public class Waterdeath : MonoBehaviour
             //... the player takes damage
             GameManager.PlayerDrowned();
         }
+        if (col.gameObject.layer == LayerMask.NameToLayer("Enemies"))
+        {
+            Debug.Log("Water has detected " + col.gameObject.name);
+            //... the enemy gets destroyed
+            col.gameObject.GetComponentInParent<EnemyHealth>().EnemyTakeDamage(100);
+        }
     }
 }
