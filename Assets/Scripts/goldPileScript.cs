@@ -27,7 +27,7 @@ public class goldPileScript : MonoBehaviour
             audioManager.Play("goldPickUp");
 
             GameManager.IncreaseScore(goldValue);
-            GameManager.AddGold();
+            GameManager.AddGold(goldValue);
             
 
             DestroyGold();

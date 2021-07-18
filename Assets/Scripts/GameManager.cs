@@ -248,8 +248,8 @@ public class GameManager : MonoBehaviour
         current.goldCollected = i;
         //Debug.Log("Gold:" + current.goldCollected);
     }
-    public static void AddGold(){
-        current.goldCollected++;
+    public static void AddGold(int goldValue){
+        current.goldCollected += goldValue;
         //Debug.Log("Gold:" + current.goldCollected);
     }
     public static string GetMessage(){

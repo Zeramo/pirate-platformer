@@ -10153,7 +10153,7 @@ MonoBehaviour:
   deathDuration: 0.1
   lastLevelNumber: 4
   initialGold: 6
-  debugmode: 0
+  debugmode: 1
 --- !u!1001 &1852606570
 PrefabInstance:
   m_ObjectHideFlags: 0
