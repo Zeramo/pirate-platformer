@@ -99,3 +99,8 @@ MonoBehaviour:
     volume: 1
     pitch: 1
     source: {fileID: 0}
+  - name: Bomb
+    clip: {fileID: 8300000, guid: 1837be5acc82b464fa0973eeee7863ea, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}

@@ -19,6 +19,8 @@ public class BombScript : MonoBehaviour
 
     public BoxCollider2D boxColliderBomb;
     public BoxCollider2D boxColliderTrigger;
+
+    public AudioManager audioManager;
     
     // Start is called before the first frame update
     void Start()
@@ -28,6 +30,8 @@ public class BombScript : MonoBehaviour
         collisionParamID = Animator.StringToHash("hasCollided");
         Invoke("TriggerExplosion", autoTriggerTime);
         Invoke("enableCollisionTest", initialLifeTime);
+
+        if (audioManager == null) audioManager = FindObjectOfType<AudioManager>();
     }
 
     private void enableCollisionTest() {
@@ -44,6 +48,7 @@ public class BombScript : MonoBehaviour
     private void TriggerExplosion()
     {
         animator.SetBool(collisionParamID, true);
+        audioManager.Play("Bomb");
         Invoke("DestroyBomb", explosionTime);
     }
 
